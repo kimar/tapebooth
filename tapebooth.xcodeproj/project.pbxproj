@@ -18,6 +18,7 @@
 		EDCDA0C516A9C94000D2B614 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDCDA0C416A9C94000D2B614 /* Default@2x.png */; };
 		EDCDA0C716A9C94000D2B614 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EDCDA0C616A9C94000D2B614 /* Default-568h@2x.png */; };
 		EDCDA0CA16A9C94000D2B614 /* tapebooth.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EDCDA0C816A9C94000D2B614 /* tapebooth.xcdatamodeld */; };
+		EDCDA0D416A9C98400D2B614 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EDCDA0D316A9C98400D2B614 /* Storyboard.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		EDCDA0C416A9C94000D2B614 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		EDCDA0C616A9C94000D2B614 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		EDCDA0C916A9C94000D2B614 /* tapebooth.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = tapebooth.xcdatamodel; sourceTree = "<group>"; };
+		EDCDA0D316A9C98400D2B614 /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +86,9 @@
 		EDCDA0B616A9C94000D2B614 /* tapebooth */ = {
 			isa = PBXGroup;
 			children = (
+				EDCDA0D016A9C97500D2B614 /* Controller */,
+				EDCDA0D116A9C97500D2B614 /* Model */,
+				EDCDA0D216A9C97500D2B614 /* View */,
 				EDCDA0BF16A9C94000D2B614 /* ICAppDelegate.h */,
 				EDCDA0C016A9C94000D2B614 /* ICAppDelegate.m */,
 				EDCDA0C816A9C94000D2B614 /* tapebooth.xcdatamodeld */,
@@ -104,6 +109,28 @@
 				EDCDA0C616A9C94000D2B614 /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		EDCDA0D016A9C97500D2B614 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		EDCDA0D116A9C97500D2B614 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		EDCDA0D216A9C97500D2B614 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				EDCDA0D316A9C98400D2B614 /* Storyboard.storyboard */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -162,6 +189,7 @@
 				EDCDA0C316A9C94000D2B614 /* Default.png in Resources */,
 				EDCDA0C516A9C94000D2B614 /* Default@2x.png in Resources */,
 				EDCDA0C716A9C94000D2B614 /* Default-568h@2x.png in Resources */,
+				EDCDA0D416A9C98400D2B614 /* Storyboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
