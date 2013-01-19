@@ -148,7 +148,7 @@
             directoryPath = [[NSFileManager defaultManager] resourcePath];
             break;
         default:
-            [NSException raise:@"Invalid location value" format:@"Location %@ is invalid", location];
+            [NSException raise:@"Invalid location value" format:@"Location %u is invalid", location];
             break;
     }
     

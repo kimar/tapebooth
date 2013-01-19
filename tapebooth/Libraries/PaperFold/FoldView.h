@@ -39,15 +39,15 @@
 @interface FoldView : UIView
 
 // each folderView consists of 2 facing views: leftView and rightView
-@property (nonatomic) FacingView *leftView, *rightView;
+@property (nonatomic, retain) FacingView *leftView, *rightView;
 // or topView and bottomView
-@property (nonatomic) FacingView *topView, *bottomView;
+@property (nonatomic, retain) FacingView *topView, *bottomView;
 
 
 // indicate whether the fold is open or closed
 @property (nonatomic, assign) FoldState state;
 // wrapper of the visible view
-@property (nonatomic) UIView *contentView;
+@property (nonatomic, retain) UIView *contentView;
 @property (nonatomic, assign) FoldDirection foldDirection;
 // optimized screenshot follows the scale of the screen
 // non-optimized is always the non-retina image

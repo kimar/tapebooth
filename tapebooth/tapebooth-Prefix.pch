@@ -20,6 +20,9 @@
     #import "ICDefinitions.h"
     #import "AFNetworking.h"
     #import "UIImageView+WebCache.h"
+    #import "EssentialImager.h"
+    #import "BWStatusBarOverlay.h"
+    #import "PaperFoldView.h"
 // Data Model
     #import "ICPrefs.h"
     #import "ICDocument.h"

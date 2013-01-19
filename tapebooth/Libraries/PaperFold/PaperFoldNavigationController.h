@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "PaperFoldView.h"
 
-@interface PaperFoldNavigationController : UIViewController <PaperFoldViewDelegate>
+@interface PaperFoldNavigationController : UINavigationController <PaperFoldViewDelegate>
 @property (nonatomic, strong) UIViewController *rootViewController, *leftViewController, *rightViewController;
 @property (nonatomic, strong) PaperFoldView *paperFoldView;
 - (id)initWithRootViewController:(UIViewController*)rootViewController;
