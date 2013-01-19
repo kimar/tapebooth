@@ -39,6 +39,7 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
         XLog(@"Failure,ERROR: %@", [error localizedDescription]);
+        [ICPrefs setAccessToken:NULL];
         block([NSDictionary dictionary]);
         
     }];
@@ -81,6 +82,7 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
         XLog(@"Failure,ERROR: %@", [error localizedDescription]);
+        [ICPrefs setAccessToken:NULL];
         block([NSArray array]);
         
     }];
@@ -133,7 +135,9 @@
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
+        [BWStatusBarOverlay dismissAnimated:YES];
         XLog(@"Failure,ERROR: %@", [error localizedDescription]);
+        [ICPrefs setAccessToken:NULL];
         block(NO);
         
     }];
