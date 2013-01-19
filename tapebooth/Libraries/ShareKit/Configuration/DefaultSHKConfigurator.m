@@ -252,7 +252,7 @@
 }
 
 - (UIColor*)barTintForView:(UIViewController*)vc {
-    return nil;
+    return [UIColor blackColor];
 }
 
 // Forms
