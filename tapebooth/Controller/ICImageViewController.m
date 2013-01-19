@@ -11,6 +11,8 @@
 @interface ICImageViewController ()
 {
     IBOutlet UIImageView *m_ImageView;
+    IBOutlet UIActivityIndicatorView *m_ActivityIndicator;
+    
     NSString *m_stImageUrl;
     NSString *m_stTitle;
 }
@@ -20,6 +22,7 @@
 
 @synthesize imageUrl = m_stImageUrl;
 @synthesize headerTitle = m_stTitle;
+@synthesize activityIndicator = m_ActivityIndicator;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -55,7 +58,19 @@
 - (void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [m_ImageView setImageWithURL:[NSURL URLWithString:m_stImageUrl]];
+    
+    __weak ICImageViewController *controller = self;
+    [m_ImageView setImageWithURL:[NSURL URLWithString:m_stImageUrl] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
+        if(!error)
+        {
+            [controller.activityIndicator setHidden:YES];
+        }
+        else
+        {
+            // Needs warning to inform user that something went wrong
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+    }];
 }
 
 @end
