@@ -140,6 +140,24 @@ typedef enum
         }
         
         m_aDocuments = [[NSMutableArray alloc] initWithArray:documents];
+        
+        // Sorting Array
+        m_aDocuments = [[m_aDocuments sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+            ICDocument *pDocumentA = (ICDocument *)a;
+            ICDocument *pDocumentB = (ICDocument *)b;
+            
+            int int1 = [pDocumentA.timeAdded intValue];
+            int int2 = [pDocumentB.timeAdded intValue];
+            
+            if(int1 > int2)
+                return NSOrderedAscending;
+            else if (int1 < int2)
+                return NSOrderedDescending;
+
+            return NSOrderedSame;
+            
+        }] mutableCopy];
+        
         [m_TableView reloadData];
         
         if(m_bManualRefresh)
