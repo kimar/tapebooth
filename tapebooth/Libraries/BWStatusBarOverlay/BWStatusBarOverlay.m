@@ -147,7 +147,9 @@
         
         self.textLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         
-        [self setProgressBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"status-bar-progress.png"]]];
+        [self setProgressBackgroundColor:
+         [UIColor colorWithPatternImage:[UIImage imageNamed:@"status-bar-progress.png"]]
+         ];
         self.statusLabel.textColor = self.textLabel.textColor;
         
         [self initializeToDefaultState];
@@ -477,13 +479,15 @@
         
         [self setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"status-bar-pattern-black.jpg"]]];
         self.textLabel.textColor = [UIColor whiteColor];
-        [self setProgressBackgroundColor:[UIColor colorWithRed:48/255.0f green:159/255.0f blue:211/255.0f alpha:1]];
+        //[self setProgressBackgroundColor:[UIColor colorWithRed:48/255.0f green:159/255.0f blue:211/255.0f alpha:1]];
+        [self setProgressBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"status-bar-progress.png"]]];
         [self.activityView setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhite];
         
     } else {
         [self setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"status-bar-pattern-default.jpg"]]];
         self.textLabel.textColor = [UIColor colorWithRed:17/255.0f green:17/255.0f blue:17/255.0f alpha:1];
-        [self setProgressBackgroundColor:[UIColor colorWithRed:48/255.0f green:159/255.0f blue:211/255.0f alpha:1]];
+        //[self setProgressBackgroundColor:[UIColor colorWithRed:48/255.0f green:159/255.0f blue:211/255.0f alpha:1]];
+        [self setProgressBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"status-bar-progress.png"]]];
         [self.activityView setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
     }
 }
