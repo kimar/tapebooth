@@ -68,13 +68,19 @@ typedef enum
     [self.navigationItem setRightBarButtonItem:[ICPrefs getNavigationBarSettingsItemWithTarget:self andAction:@selector(showActionSheet:)]];
     
     m_MenuTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 150, kScreenHeight) style:UITableViewStylePlain];
-    [m_MenuTableView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"FabricBackground.png"]]];
+    [m_MenuTableView setBackgroundColor:[UIColor clearColor]];
     [m_MenuTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [m_MenuTableView setTag:MenuTableView];
     [m_MenuTableView setDelegate:self];
     [m_MenuTableView setDataSource:self];
     
-    [m_PaperFoldView setLeftFoldContentView:m_MenuTableView foldCount:3 pullFactor:.9f];
+    UIView *menuCarrierView = [[UIView alloc] initWithFrame:m_MenuTableView.frame];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
+    [imageView setImage:[UIImage imageNamed:@"FabricBackground.png"]];
+    [menuCarrierView addSubview:imageView];
+    [menuCarrierView addSubview:m_MenuTableView];
+    
+    [m_PaperFoldView setLeftFoldContentView:menuCarrierView foldCount:3 pullFactor:.9f];
     [m_PaperFoldView setCenterContentView:m_pMainView];
 }
 
@@ -254,7 +260,7 @@ typedef enum
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if(tableView.tag == MenuTableView)
-        return 1;
+        return 2;
     else
         return [m_aDocuments count];
 }
@@ -265,7 +271,11 @@ typedef enum
     {
         if (indexPath.row == 0)
         {
-            return 200.0f;
+            return 120.0f;
+        }
+        else
+        {
+            return 50.0f;
         }
     }
     return 90.0f;
@@ -275,32 +285,61 @@ typedef enum
 {
     if(tableView.tag == MenuTableView)
     {
-        NSString *stCellIdentifier = @"MenuCell";
+        NSString *stCellIdentifier = [NSString stringWithFormat:@"MenuCell-%d", indexPath.row];
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:stCellIdentifier];
         
         if(!cell)
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:stCellIdentifier];
-        
-        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-        
-        UIImageView *profileImageView = [[UIImageView alloc] initWithFrame:CGRectMake(35, 10, 80, 80)];
-        [profileImageView.layer setCornerRadius:5.0f];
-        [cell.contentView addSubview:profileImageView];
-        
-        UILabel *usernameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 90, 150, 30)];
-        [usernameLabel setTextAlignment:NSTextAlignmentCenter];
-        [usernameLabel setFont:[UIFont boldSystemFontOfSize:13.0f]];
-        [usernameLabel setTextColor:[UIColor whiteColor]];
-        [usernameLabel setBackgroundColor:[UIColor clearColor]];
-        [cell.contentView addSubview:usernameLabel];
-        
-        [ICApiRequestController getAccountDataWithCompletion:^(NSDictionary *account) {
-            XLog(@"Avatar: %@", [account objectForKey:@"avatar"]);
-            [profileImageView setImageWithURL:
-             [NSURL URLWithString:[account objectForKey:@"avatar"]]
-             ];
-            [usernameLabel setText:[account objectForKey:@"username"]];
-        }];
+                
+        if(indexPath.row == 0)
+        {
+            [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+
+            UIImageView *nameBadgeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 80, 150, 40)];
+            [nameBadgeImageView setImage:[UIImage imageNamed:@"NameBadge.png"]];
+            [nameBadgeImageView setContentMode:UIViewContentModeScaleAspectFit];
+            [cell.contentView addSubview:nameBadgeImageView];
+            
+            UIImageView *profileImageView = [[UIImageView alloc] initWithFrame:CGRectMake(35, 8, 80, 80)];
+            [profileImageView.layer setCornerRadius:5.0f];
+            [profileImageView setClipsToBounds:YES];
+            [cell.contentView addSubview:profileImageView];
+            
+            UILabel *usernameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 88, 150, 30)];
+            [usernameLabel setTextAlignment:NSTextAlignmentCenter];
+            [usernameLabel setFont:[UIFont fontWithName:@"MarkerFelt-Thin" size:13.0f]];
+            [usernameLabel setTextColor:[UIColor blackColor]];
+            [usernameLabel setBackgroundColor:[UIColor clearColor]];
+            //[usernameLabel setShadowColor:[UIColor blackColor]];
+            [cell.contentView addSubview:usernameLabel];
+            
+            [cell.contentView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"ProfileBackground.png"]]];
+            
+            [ICApiRequestController getAccountDataWithCompletion:^(NSDictionary *account) {
+                XLog(@"Avatar: %@", [account objectForKey:@"avatar"]);
+                [profileImageView setImageWithURL:
+                 [NSURL URLWithString:[account objectForKey:@"avatar"]]
+                 ];
+                [usernameLabel setText:[account objectForKey:@"username"]];
+            }];
+        }
+        else
+        {
+            [cell setSelectionStyle:UITableViewCellSelectionStyleGray];
+
+            UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, cell.bounds.size.width, cell.bounds.size.height)];
+            [imageView setImage:[UIImage imageNamed:@"MenuItemBackground.png"]];
+            [cell.contentView addSubview:imageView];
+            
+            UILabel *textLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, cell.bounds.size.width, cell.bounds.size.height)];
+            [textLabel setBackgroundColor:[UIColor clearColor]];
+            [textLabel setTextColor:[UIColor whiteColor]];
+            [textLabel setShadowColor:[UIColor blackColor]];
+            [textLabel setText:@"Upload"];
+            [textLabel setFont:[UIFont boldSystemFontOfSize:15.0f]];
+            [textLabel setTextAlignment:NSTextAlignmentCenter];
+            [cell.contentView addSubview:textLabel];
+        }
         
         
         return cell;
@@ -337,6 +376,14 @@ typedef enum
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    if(tableView.tag == MenuTableView)
+    {
+        if(indexPath.row == 1)
+        {
+            [self showActionSheet:NULL];
+        }
+    }
 }
 
 @end
