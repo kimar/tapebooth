@@ -57,6 +57,12 @@
 		ED63108416AA3EC9001E0CE2 /* SettingsBarButton.png in Resources */ = {isa = PBXBuildFile; fileRef = ED63108016AA3EC9001E0CE2 /* SettingsBarButton.png */; };
 		ED63108516AA3EC9001E0CE2 /* BackBarButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ED63108116AA3EC9001E0CE2 /* BackBarButton@2x.png */; };
 		ED63108616AA3EC9001E0CE2 /* BackBarButton.png in Resources */ = {isa = PBXBuildFile; fileRef = ED63108216AA3EC9001E0CE2 /* BackBarButton.png */; };
+		ED67337616AADE360054E31F /* MenuItemBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ED67337416AADE360054E31F /* MenuItemBackground@2x.png */; };
+		ED67337716AADE360054E31F /* MenuItemBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = ED67337516AADE360054E31F /* MenuItemBackground.png */; };
+		ED67404216AAD9510096421F /* ProfileBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = ED67404016AAD9510096421F /* ProfileBackground.png */; };
+		ED67404316AAD9510096421F /* ProfileBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ED67404116AAD9510096421F /* ProfileBackground@2x.png */; };
+		ED67404616AAD9FE0096421F /* NameBadge@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ED67404416AAD9FE0096421F /* NameBadge@2x.png */; };
+		ED67404716AAD9FE0096421F /* NameBadge.png in Resources */ = {isa = PBXBuildFile; fileRef = ED67404516AAD9FE0096421F /* NameBadge.png */; };
 		ED9BE09916AA17B20000E61D /* ICAuthViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9BE09816AA17B20000E61D /* ICAuthViewViewController.m */; };
 		ED9E688E16AA139F00AE10BC /* NSString+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9E688D16AA139F00AE10BC /* NSString+URLEncoding.m */; };
 		EDB39BC516AA257800614C87 /* ICApiRequestController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB39BC416AA257800614C87 /* ICApiRequestController.m */; };
@@ -175,6 +181,12 @@
 		ED63108016AA3EC9001E0CE2 /* SettingsBarButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SettingsBarButton.png; sourceTree = "<group>"; };
 		ED63108116AA3EC9001E0CE2 /* BackBarButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BackBarButton@2x.png"; sourceTree = "<group>"; };
 		ED63108216AA3EC9001E0CE2 /* BackBarButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BackBarButton.png; sourceTree = "<group>"; };
+		ED67337416AADE360054E31F /* MenuItemBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MenuItemBackground@2x.png"; sourceTree = "<group>"; };
+		ED67337516AADE360054E31F /* MenuItemBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuItemBackground.png; sourceTree = "<group>"; };
+		ED67404016AAD9510096421F /* ProfileBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ProfileBackground.png; sourceTree = "<group>"; };
+		ED67404116AAD9510096421F /* ProfileBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ProfileBackground@2x.png"; sourceTree = "<group>"; };
+		ED67404416AAD9FE0096421F /* NameBadge@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NameBadge@2x.png"; sourceTree = "<group>"; };
+		ED67404516AAD9FE0096421F /* NameBadge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NameBadge.png; sourceTree = "<group>"; };
 		ED9BE09716AA17B20000E61D /* ICAuthViewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICAuthViewViewController.h; sourceTree = "<group>"; };
 		ED9BE09816AA17B20000E61D /* ICAuthViewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ICAuthViewViewController.m; sourceTree = "<group>"; };
 		ED9E688C16AA139F00AE10BC /* NSString+URLEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+URLEncoding.h"; sourceTree = "<group>"; };
@@ -348,6 +360,12 @@
 		ED63104D16AA2F42001E0CE2 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				ED67337416AADE360054E31F /* MenuItemBackground@2x.png */,
+				ED67337516AADE360054E31F /* MenuItemBackground.png */,
+				ED67404416AAD9FE0096421F /* NameBadge@2x.png */,
+				ED67404516AAD9FE0096421F /* NameBadge.png */,
+				ED67404016AAD9510096421F /* ProfileBackground.png */,
+				ED67404116AAD9510096421F /* ProfileBackground@2x.png */,
 				ED63107F16AA3EC9001E0CE2 /* SettingsBarButton@2x.png */,
 				ED63108016AA3EC9001E0CE2 /* SettingsBarButton.png */,
 				ED63108116AA3EC9001E0CE2 /* BackBarButton@2x.png */,
@@ -620,6 +638,12 @@
 				ED37F3FF16AABDB8000388AF /* PaperFoldResources.bundle in Resources */,
 				ED37F40216AABDB8000388AF /* swipe_guide.psd in Resources */,
 				ED37F40316AABDB8000388AF /* swipe_guide2.psd in Resources */,
+				ED67404216AAD9510096421F /* ProfileBackground.png in Resources */,
+				ED67404316AAD9510096421F /* ProfileBackground@2x.png in Resources */,
+				ED67404616AAD9FE0096421F /* NameBadge@2x.png in Resources */,
+				ED67404716AAD9FE0096421F /* NameBadge.png in Resources */,
+				ED67337616AADE360054E31F /* MenuItemBackground@2x.png in Resources */,
+				ED67337716AADE360054E31F /* MenuItemBackground.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
