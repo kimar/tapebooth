@@ -64,29 +64,20 @@
 
 - (void) webViewDidFinishLoad:(UIWebView *)webView
 {
+    NSString *html = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+    if([html rangeOfString:@"Success code="].location != NSNotFound)
+    {
+        NSString *stToken = [html stringByReplacingOccurrencesOfString:@"Success code=" withString:@""];
+        [ICPrefs setAccessToken:stToken];
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 
 }
 
 - (void) webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
-    //XLog(@"WebView Failed to load: %@", error.description);
-    if([error.description rangeOfString:@"#access_token="].location != NSNotFound)
-    {
-        NSString *accessToken = error.description;
-        NSArray *splittedUrl = [accessToken componentsSeparatedByString:@"#access_token="];
-        if([splittedUrl count] >= 2)
-        {
-            splittedUrl = [(NSString *)[splittedUrl objectAtIndex:1] componentsSeparatedByString:@"&"];
-            if([splittedUrl count] > 0)
-            {
-                NSString *stToken = (NSString *)[splittedUrl objectAtIndex:0];
-                //XLog(@"Token: %@", stToken);
-                
-                [ICPrefs setAccessToken:stToken];
-                [self.navigationController popViewControllerAnimated:YES];
-            }
-        }
-    }
+    XLog(@"");
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end
