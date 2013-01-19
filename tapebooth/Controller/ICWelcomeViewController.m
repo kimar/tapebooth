@@ -28,6 +28,10 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    
+    [ICApiRequestController getAllDocumentsWithCompletion:^(NSArray *documents) {
+        XLog(@"Documents: %d", [documents count]);
+    }];
 }
 
 - (void)didReceiveMemoryWarning

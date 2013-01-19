@@ -53,8 +53,7 @@
 
 - (void) webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
-    //NSLog(@"WebView Failed to load: %@", error.description);
-
+    //XLog(@"WebView Failed to load: %@", error.description);
     if([error.description rangeOfString:@"#access_token="].location != NSNotFound)
     {
         NSString *accessToken = error.description;
@@ -65,7 +64,7 @@
             if([splittedUrl count] > 0)
             {
                 NSString *stToken = (NSString *)[splittedUrl objectAtIndex:0];
-                NSLog(@"Token: %@", stToken);
+                //XLog(@"Token: %@", stToken);
                 
                 [[NSUserDefaults standardUserDefaults] setObject:stToken forKey:kAuthTokenKey];
                 [[NSUserDefaults standardUserDefaults] synchronize];
