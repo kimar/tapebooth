@@ -8,9 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ICWebViewViewController : UIViewController
-
-@property (nonatomic, retain) NSURL *urlToLoad;
-@property (nonatomic, assign) BOOL isAuthentication;
+@interface ICAuthViewViewController : UIViewController
 
 @end

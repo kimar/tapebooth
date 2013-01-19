@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ICWebViewViewController.h"
 
 @interface ICWelcomeViewController : UIViewController
 

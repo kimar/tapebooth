@@ -6,21 +6,15 @@
 //  Copyright (c) 2013 Marcus Kida [indiecoder.net]. All rights reserved.
 //
 
-#import "ICWebViewViewController.h"
+#import "ICAuthViewViewController.h"
 
-@interface ICWebViewViewController () <UIWebViewDelegate>
+@interface ICAuthViewViewController () <UIWebViewDelegate>
 {
     IBOutlet UIWebView *m_WebView;
-    NSURL *m_UrlToLoad;
-    
-    BOOL m_bIsAuthentication;
 }
 @end
 
-@implementation ICWebViewViewController
-
-@synthesize urlToLoad = m_UrlToLoad;
-@synthesize isAuthentication = m_bIsAuthentication;
+@implementation ICAuthViewViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -47,25 +41,19 @@
 {
     [super viewDidAppear:animated];
     
-    m_UrlToLoad = [NSURL URLWithString:
+    NSURL *url = [NSURL URLWithString:
                    [NSString stringWithFormat:@"https://my.doctape.com/oauth2?client_id=%@&response_type=token&redirect_uri=%@&scope=docs&state=", [kOAuthAppId urlEncodeUsingEncoding:NSUTF8StringEncoding], [kOAuthRedirectUrl urlEncodeUsingEncoding:NSUTF8StringEncoding]]];
-    [m_WebView loadRequest:[NSURLRequest requestWithURL:m_UrlToLoad]];
+    [m_WebView loadRequest:[NSURLRequest requestWithURL:url]];
 }
 
 - (void) webViewDidFinishLoad:(UIWebView *)webView
 {
-    NSString *stTitle = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
-    NSLog(@"WebView Finished: %@ Title: %@", [webView.request.URL description], stTitle);
-    
-    if([stTitle rangeOfString:@"Success code"].location != NSNotFound)
-    {
-        [self.navigationController popViewControllerAnimated:YES];
-    }
+
 }
 
 - (void) webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
-    NSLog(@"WebView Failed to load: %@", error.description);
+    //NSLog(@"WebView Failed to load: %@", error.description);
 
     if([error.description rangeOfString:@"#access_token="].location != NSNotFound)
     {

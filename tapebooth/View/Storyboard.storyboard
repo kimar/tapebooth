@@ -54,10 +54,10 @@
             </objects>
             <point key="canvasLocation" x="-74" y="23"/>
         </scene>
-        <!--Web View View Controller-->
+        <!--Auth View View Controller-->
         <scene sceneID="WJ7-UN-Cil">
             <objects>
-                <viewController id="Any-Dq-ihc" customClass="ICWebViewViewController" sceneMemberID="viewController">
+                <viewController id="Any-Dq-ihc" customClass="ICAuthViewViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2wa-AG-DA3">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -84,8 +84,8 @@
         </scene>
     </scenes>
     <classes>
-        <class className="ICWebViewViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ICWebViewViewController.h"/>
+        <class className="ICAuthViewViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ICAuthViewViewController.h"/>
             <relationships>
                 <relationship kind="outlet" name="m_WebView" candidateClass="UIWebView"/>
             </relationships>

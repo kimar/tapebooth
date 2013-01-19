@@ -7,10 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		ED9E688516AA107A00AE10BC /* ICOAuthController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9E688416AA107A00AE10BC /* ICOAuthController.m */; };
+		ED9BE09916AA17B20000E61D /* ICAuthViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9BE09816AA17B20000E61D /* ICAuthViewViewController.m */; };
 		ED9E688E16AA139F00AE10BC /* NSString+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9E688D16AA139F00AE10BC /* NSString+URLEncoding.m */; };
 		EDB72F9416A9EDBF00AB5135 /* ICWelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB72F9316A9EDBF00AB5135 /* ICWelcomeViewController.m */; };
-		EDB72F9716A9F43D00AB5135 /* ICWebViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB72F9616A9F43D00AB5135 /* ICWebViewViewController.m */; };
 		EDB72FAC16A9F7C900AB5135 /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB72F9A16A9F7C900AB5135 /* AFHTTPClient.m */; };
 		EDB72FAD16A9F7C900AB5135 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB72F9C16A9F7C900AB5135 /* AFHTTPRequestOperation.m */; };
 		EDB72FAE16A9F7C900AB5135 /* AFImageRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB72F9E16A9F7C900AB5135 /* AFImageRequestOperation.m */; };
@@ -42,14 +41,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		ED9E688316AA107A00AE10BC /* ICOAuthController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICOAuthController.h; sourceTree = "<group>"; };
-		ED9E688416AA107A00AE10BC /* ICOAuthController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ICOAuthController.m; sourceTree = "<group>"; };
+		ED9BE09716AA17B20000E61D /* ICAuthViewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICAuthViewViewController.h; sourceTree = "<group>"; };
+		ED9BE09816AA17B20000E61D /* ICAuthViewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ICAuthViewViewController.m; sourceTree = "<group>"; };
 		ED9E688C16AA139F00AE10BC /* NSString+URLEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+URLEncoding.h"; sourceTree = "<group>"; };
 		ED9E688D16AA139F00AE10BC /* NSString+URLEncoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+URLEncoding.m"; sourceTree = "<group>"; };
 		EDB72F9216A9EDBF00AB5135 /* ICWelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICWelcomeViewController.h; sourceTree = "<group>"; };
 		EDB72F9316A9EDBF00AB5135 /* ICWelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ICWelcomeViewController.m; sourceTree = "<group>"; };
-		EDB72F9516A9F43D00AB5135 /* ICWebViewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICWebViewViewController.h; sourceTree = "<group>"; };
-		EDB72F9616A9F43D00AB5135 /* ICWebViewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ICWebViewViewController.m; sourceTree = "<group>"; };
 		EDB72F9916A9F7C900AB5135 /* AFHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPClient.h; sourceTree = "<group>"; };
 		EDB72F9A16A9F7C900AB5135 /* AFHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPClient.m; sourceTree = "<group>"; };
 		EDB72F9B16A9F7C900AB5135 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
@@ -221,12 +218,10 @@
 		EDCDA0D016A9C97500D2B614 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				ED9BE09716AA17B20000E61D /* ICAuthViewViewController.h */,
+				ED9BE09816AA17B20000E61D /* ICAuthViewViewController.m */,
 				EDB72F9216A9EDBF00AB5135 /* ICWelcomeViewController.h */,
 				EDB72F9316A9EDBF00AB5135 /* ICWelcomeViewController.m */,
-				EDB72F9516A9F43D00AB5135 /* ICWebViewViewController.h */,
-				EDB72F9616A9F43D00AB5135 /* ICWebViewViewController.m */,
-				ED9E688316AA107A00AE10BC /* ICOAuthController.h */,
-				ED9E688416AA107A00AE10BC /* ICOAuthController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -325,7 +320,6 @@
 				EDCDA0C116A9C94000D2B614 /* ICAppDelegate.m in Sources */,
 				EDCDA0CA16A9C94000D2B614 /* tapebooth.xcdatamodeld in Sources */,
 				EDB72F9416A9EDBF00AB5135 /* ICWelcomeViewController.m in Sources */,
-				EDB72F9716A9F43D00AB5135 /* ICWebViewViewController.m in Sources */,
 				EDB72FAC16A9F7C900AB5135 /* AFHTTPClient.m in Sources */,
 				EDB72FAD16A9F7C900AB5135 /* AFHTTPRequestOperation.m in Sources */,
 				EDB72FAE16A9F7C900AB5135 /* AFImageRequestOperation.m in Sources */,
@@ -335,8 +329,8 @@
 				EDB72FB216A9F7C900AB5135 /* AFURLConnectionOperation.m in Sources */,
 				EDB72FB316A9F7C900AB5135 /* AFXMLRequestOperation.m in Sources */,
 				EDB72FB416A9F7C900AB5135 /* UIImageView+AFNetworking.m in Sources */,
-				ED9E688516AA107A00AE10BC /* ICOAuthController.m in Sources */,
 				ED9E688E16AA139F00AE10BC /* NSString+URLEncoding.m in Sources */,
+				ED9BE09916AA17B20000E61D /* ICAuthViewViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

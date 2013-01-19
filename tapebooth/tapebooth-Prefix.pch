@@ -17,5 +17,5 @@
     #import "NSString+URLEncoding.h"
     #import "ICDefinitions.h"
     #import "AFNetworking.h"
-    #import "ICOAuthController.h"
+    #import "ICAuthViewViewController.h"
 #endif
