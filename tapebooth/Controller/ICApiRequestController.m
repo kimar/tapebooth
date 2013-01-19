@@ -132,6 +132,7 @@
         }
         
         [BWStatusBarOverlay dismissAnimated:YES];
+        block(YES);
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
