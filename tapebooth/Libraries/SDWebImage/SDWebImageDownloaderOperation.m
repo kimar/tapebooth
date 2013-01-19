@@ -59,7 +59,9 @@
         }
 
         self.executing = YES;
-        self.connection = [NSURLConnection.alloc initWithRequest:self.request delegate:self startImmediately:NO];
+        NSMutableURLRequest *request = [self.request mutableCopy];
+        [request addValue:[NSString stringWithFormat:@"Bearer %@", [ICPrefs getAccessToken]] forHTTPHeaderField:@"Authorization"];
+        self.connection = [NSURLConnection.alloc initWithRequest:request delegate:self startImmediately:NO];
 
         // If not in low priority mode, ensure we aren't blocked by UI manipulations (default runloop mode for NSURLConnection is NSEventTrackingRunLoopMode)
         if (!(self.options & SDWebImageDownloaderLowPriority))
