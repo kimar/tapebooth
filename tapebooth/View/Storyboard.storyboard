@@ -66,10 +66,11 @@
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         </imageView>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="103" contentMode="left" text="txt" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="6" id="YRE-3i-V9N">
-                                                            <rect key="frame" x="244" y="30" width="64" height="21"/>
+                                                            <rect key="frame" x="94" y="59" width="64" height="21"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                                            <color key="backgroundColor" red="0.76078431372549016" green="0.25882352941176467" blue="0.79607843137254897" alpha="1" colorSpace="calibratedRGB"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                            <color key="textColor" white="0.25" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         </label>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="scaleAspectFill" id="Y3O-Yb-hUi">
@@ -202,10 +203,6 @@
         <class className="ICWelcomeViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ICWelcomeViewController.h"/>
             <relationships>
-                <relationship kind="action" name="authButtonPressed:"/>
-                <relationship kind="action" name="selectPhotoSource:"/>
-                <relationship kind="action" name="showActionSheet:"/>
-                <relationship kind="action" name="showImprint:"/>
                 <relationship kind="outlet" name="m_PaperFoldView" candidateClass="PaperFoldView"/>
                 <relationship kind="outlet" name="m_SignInButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="m_TableView" candidateClass="UITableView"/>
