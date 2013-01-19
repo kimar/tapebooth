@@ -82,6 +82,7 @@ typedef enum
     
     [m_PaperFoldView setLeftFoldContentView:menuCarrierView foldCount:3 pullFactor:.9f];
     [m_PaperFoldView setCenterContentView:m_pMainView];
+    [m_PaperFoldView setEnableLeftFoldDragging:NO];
 }
 
 - (void)didReceiveMemoryWarning
@@ -96,6 +97,9 @@ typedef enum
     
     if(!m_ShotPhoto)
         m_bShowsShotPhoto = NO;
+    
+    if([ICPrefs hasAccessToken])
+        [m_PaperFoldView setEnableLeftFoldDragging:YES];
     
     [self refreshDocuments];
     [self refreshMenu];
@@ -319,6 +323,8 @@ typedef enum
                 XLog(@"Avatar: %@", [account objectForKey:@"avatar"]);
                 [profileImageView setImageWithURL:
                  [NSURL URLWithString:[account objectForKey:@"avatar"]]
+                 placeholderImage:
+                 [UIImage imageNamed:@"AvatarPlaceholder.png"]
                  ];
                 [usernameLabel setText:[account objectForKey:@"username"]];
             }];
@@ -363,7 +369,7 @@ typedef enum
         
         XLog(@"URL String: %@", [ICPrefs getThumbnailUrlForDocument:document.documentId]);
         [thumbnailImageView setImageWithURL:[NSURL URLWithString:[ICPrefs getThumbnailUrlForDocument:document.documentId]]
-                           placeholderImage:[UIImage imageNamed:@"FabricBackground.png"]];
+                           placeholderImage:[UIImage imageNamed:@"DocumentPlaceholder.png"]];
         [filenameLabel setText:document.name];
         [filesizeLabel setText:[NSString stringWithFormat:@"%.0f kB", (float)[document.documentSize intValue]/1000]];
         [filetypeLabel setText:[NSString stringWithFormat:@"%@", document.extension]];
