@@ -90,7 +90,13 @@ typedef enum
             }
             else
             {
-                // Needs warning to inform user that something went wrong
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Note"
+                                                                message:@"Sorry, but viewing is only supported for image files at the moment."
+                                                               delegate:nil
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil, nil];
+                [alert show];
+                
                 [self.navigationController popViewControllerAnimated:YES];
             }
         }];
