@@ -21,7 +21,9 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];*/
     
-   
+    // Configure ShareKit
+    DefaultSHKConfigurator *configurator = [[DefaultSHKConfigurator alloc] init];
+    [SHKConfiguration sharedInstanceWithConfigurator:configurator];
     
     return YES;
 }

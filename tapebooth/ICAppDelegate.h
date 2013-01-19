@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SHKConfiguration.h"
 
 @interface ICAppDelegate : UIResponder <UIApplicationDelegate>
 
