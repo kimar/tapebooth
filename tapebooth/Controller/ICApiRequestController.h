@@ -10,6 +10,8 @@
 
 @interface ICApiRequestController : NSObject
 
++ (void) getAccountDataWithCompletion:(void (^)(NSDictionary *account))block;
 + (void) getAllDocumentsWithCompletion:(void (^)(NSArray *documents))block;
++ (void) postDocumentWithJpegData:(NSData *)data andFilename:(NSString *)filename andProgress:(void (^)(long long totalBytesWritten, long long totalBytesExpectedToWrite))progress andCompletion:(void (^)(BOOL success))block;
 
 @end
