@@ -16,6 +16,7 @@
     #import <Foundation/Foundation.h>
     #import <CoreData/CoreData.h>
     #import <QuartzCore/QuartzCore.h>
+    #import <AssetsLibrary/AssetsLibrary.h>
     #import "NSString+URLEncoding.h"
     #import "ICDefinitions.h"
     #import "AFNetworking.h"
@@ -23,6 +24,8 @@
     #import "EssentialImager.h"
     #import "BWStatusBarOverlay.h"
     #import "PaperFoldView.h"
+    #import "GPUImage.h"
+    #import "DLCImagePickerController.h"
 // Data Model
     #import "ICPrefs.h"
     #import "ICDocument.h"
