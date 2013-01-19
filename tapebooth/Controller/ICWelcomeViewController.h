@@ -11,4 +11,7 @@
 
 @interface ICWelcomeViewController : UIViewController
 
+@property (nonatomic, assign) BOOL showsShotPhoto;
+@property (nonatomic, retain) UIImage *shotPhoto;
+
 @end

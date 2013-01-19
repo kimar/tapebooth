@@ -14,18 +14,39 @@ typedef enum
     Filetype
 } ViewTags;
 
+typedef enum
+{
+    PhotoActionSheet = 100,
+    ActionActionSheet
+} ActionSheetAlertViewTags;
+
+typedef enum
+{
+    MainTableView = 100,
+    MenuTableView
+} TableViewTags;
+
 #import "ICWelcomeViewController.h"
 
-@interface ICWelcomeViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface ICWelcomeViewController () <UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, UIAlertViewDelegate>
 {
     IBOutlet UITableView *m_TableView;
     IBOutlet UIButton *m_SignInButton;
+    IBOutlet PaperFoldView *m_PaperFoldView;
+    IBOutlet UIView *m_pMainView;
     
+    BOOL m_bShowsShotPhoto;
+    UIImage *m_ShotPhoto;
+    UITableView *m_MenuTableView;
     NSMutableArray *m_aDocuments;
+    EIImagePickerDelegate *m_pImagePickerDelegate;
 }
 @end
 
 @implementation ICWelcomeViewController
+
+@synthesize showsShotPhoto = m_bShowsShotPhoto;
+@synthesize shotPhoto = m_ShotPhoto;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -44,7 +65,17 @@ typedef enum
     [self.navigationItem setTitleView:[ICPrefs getNavigationBarLabelWithText:@"tapebooth"]];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"TopBar.png"]
                                                   forBarMetrics:UIBarMetricsDefault];
-    [self.navigationItem setRightBarButtonItem:[ICPrefs getNavigationBarSettingsItemWithTarget:self andAction:@selector(showImprint:)]];
+    [self.navigationItem setRightBarButtonItem:[ICPrefs getNavigationBarSettingsItemWithTarget:self andAction:@selector(showActionSheet:)]];
+    
+    m_MenuTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 150, kScreenHeight) style:UITableViewStylePlain];
+    [m_MenuTableView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"FabricBackground.png"]]];
+    [m_MenuTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    [m_MenuTableView setTag:MenuTableView];
+    [m_MenuTableView setDelegate:self];
+    [m_MenuTableView setDataSource:self];
+    
+    [m_PaperFoldView setLeftFoldContentView:m_MenuTableView foldCount:3 pullFactor:.9f];
+    [m_PaperFoldView setCenterContentView:m_pMainView];
 }
 
 - (void)didReceiveMemoryWarning
@@ -57,6 +88,16 @@ typedef enum
 {
     [super viewDidAppear:animated];
     
+    if(!m_ShotPhoto)
+        m_bShowsShotPhoto = NO;
+    
+    [self refreshDocuments];
+    [self refreshMenu];
+}
+
+#pragma mark - PrivateMethods
+- (void) refreshDocuments
+{
     [ICApiRequestController getAllDocumentsWithCompletion:^(NSArray *documents) {
         XLog(@"Documents: %d", [documents count]);
         
@@ -76,10 +117,26 @@ typedef enum
     }];
 }
 
+- (void) refreshMenu
+{
+    [m_MenuTableView reloadData];
+}
+
 #pragma mark - IBActions
 - (IBAction) authButtonPressed:(id)sender
 {
     [self performSegueWithIdentifier:@"ShowWebView" sender:self];
+}
+
+- (IBAction) showActionSheet:(id)sender
+{
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"What do you want to do?"
+                                                             delegate:self
+                                                    cancelButtonTitle:@"Cancel"
+                                               destructiveButtonTitle:NULL
+                                                    otherButtonTitles:@"Upload photo", @"About", nil];
+    actionSheet.tag = ActionActionSheet;
+    [actionSheet showInView:self.view];
 }
 
 - (IBAction) showImprint:(id)sender
@@ -92,15 +149,99 @@ typedef enum
     [alert show];
 }
 
+- (IBAction) selectPhotoSource:(id)sender
+{
+    if (!m_pImagePickerDelegate)
+    {
+        m_pImagePickerDelegate = [[EIImagePickerDelegate alloc] init];
+        
+        __weak ICWelcomeViewController *controller = self;
+        [m_pImagePickerDelegate setImagePickerCompletionBlock:^(UIImage *pickerImage) {
+            controller.showsShotPhoto = YES;
+            controller.shotPhoto = pickerImage;
+            [controller performSegueWithIdentifier:@"ShowImageView" sender:controller];
+
+        }];
+    }
+    
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+    {
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select your photosource"
+                                                                 delegate:self
+                                                        cancelButtonTitle:@"Cancel"
+                                                   destructiveButtonTitle:nil
+                                                        otherButtonTitles:@"Photo Roll", @"Camera", nil];
+        actionSheet.tag = PhotoActionSheet;
+        [actionSheet showInView:self.view];
+        
+    } else {
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select your photosource"
+                                                                 delegate:self
+                                                        cancelButtonTitle:@"Cancel"
+                                                   destructiveButtonTitle:nil
+                                                        otherButtonTitles:@"Photo Roll", nil];
+        actionSheet.tag = PhotoActionSheet;
+        [actionSheet showInView:self.view];
+    }
+}
+
+# pragma mark - UIActionSheetDelegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if(actionSheet.tag == PhotoActionSheet)
+    {
+        switch (buttonIndex) {
+            case 0:
+                [m_pImagePickerDelegate presentFromController:self withSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+                break;
+            case 1:
+                if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+                {
+                    [m_pImagePickerDelegate presentFromController:self withSourceType:UIImagePickerControllerSourceTypeCamera];
+                }
+                break;
+            default:
+                break;
+        }
+    }
+    else if(actionSheet.tag = ActionActionSheet)
+    {
+        switch (buttonIndex)
+        {
+            case 0:
+                [self selectPhotoSource:NULL];
+                break;
+                
+            case 1:
+                [self showImprint:NULL];
+                break;
+                
+            default:
+                break;
+        }
+    }
+}
+
 #pragma mark - Segues
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if([segue.identifier isEqualToString:@"ShowImageView"])
     {
-        ICDocument *document = (ICDocument *)[m_aDocuments objectAtIndex:[m_TableView indexPathForSelectedRow].row];
         ICImageViewController *viewController = (ICImageViewController *)segue.destinationViewController;
-        viewController.imageUrl = [ICPrefs getOriginalUrlForDocument:document.documentId];
-        viewController.headerTitle = document.name;
+        
+        if(m_bShowsShotPhoto)
+        {
+            viewController.image = m_ShotPhoto;
+            m_ShotPhoto = NULL;
+            viewController.headerTitle = @"New Photo";
+        }
+        else
+        {
+            ICDocument *document = (ICDocument *)[m_aDocuments objectAtIndex:[m_TableView indexPathForSelectedRow].row];
+            viewController.imageUrl = [ICPrefs getOriginalUrlForDocument:document.documentId];
+            viewController.headerTitle = document.name;
+        }
     }
 }
 
@@ -112,41 +253,90 @@ typedef enum
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [m_aDocuments count];
+    if(tableView.tag == MenuTableView)
+        return 1;
+    else
+        return [m_aDocuments count];
+}
+
+- (float) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if(tableView.tag == MenuTableView)
+    {
+        if (indexPath.row == 0)
+        {
+            return 200.0f;
+        }
+    }
+    return 90.0f;
 }
 
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *stCellIdentifier = @"DocumentCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:stCellIdentifier];
-    
-    if(!cell)
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:stCellIdentifier];
-    
-    ICDocument *document = (ICDocument *)[m_aDocuments objectAtIndex:indexPath.row];
-
-    // Setup Views
-    UIImageView *thumbnailImageView = (UIImageView *)[cell viewWithTag:Thumbnail];
-    [thumbnailImageView.layer setCornerRadius:5.0f];
-    UILabel *filenameLabel = (UILabel *)[cell viewWithTag:Filename];
-    UILabel *filesizeLabel = (UILabel *)[cell viewWithTag:Filesize];
-    UILabel *filetypeLabel = (UILabel *)[cell viewWithTag:Filetype];
-    
-    XLog(@"URL String: %@", [ICPrefs getThumbnailUrlForDocument:document.documentId]);
-    [thumbnailImageView setImageWithURL:[NSURL URLWithString:[ICPrefs getThumbnailUrlForDocument:document.documentId]]
-                       placeholderImage:[UIImage imageNamed:@"FabricBackground.png"]];
-    [filenameLabel setText:document.name];
-    [filesizeLabel setText:[NSString stringWithFormat:@"%.0f kB", (float)[document.documentSize intValue]/1000]];
-    [filetypeLabel setText:[NSString stringWithFormat:@"%@", document.extension]];
-
-    return cell;
+    if(tableView.tag == MenuTableView)
+    {
+        NSString *stCellIdentifier = @"MenuCell";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:stCellIdentifier];
+        
+        if(!cell)
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:stCellIdentifier];
+        
+        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+        
+        UIImageView *profileImageView = [[UIImageView alloc] initWithFrame:CGRectMake(35, 10, 80, 80)];
+        [profileImageView.layer setCornerRadius:5.0f];
+        [cell.contentView addSubview:profileImageView];
+        
+        UILabel *usernameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 90, 150, 30)];
+        [usernameLabel setTextAlignment:NSTextAlignmentCenter];
+        [usernameLabel setFont:[UIFont boldSystemFontOfSize:13.0f]];
+        [usernameLabel setTextColor:[UIColor whiteColor]];
+        [usernameLabel setBackgroundColor:[UIColor clearColor]];
+        [cell.contentView addSubview:usernameLabel];
+        
+        [ICApiRequestController getAccountDataWithCompletion:^(NSDictionary *account) {
+            XLog(@"Avatar: %@", [account objectForKey:@"avatar"]);
+            [profileImageView setImageWithURL:
+             [NSURL URLWithString:[account objectForKey:@"avatar"]]
+             ];
+            [usernameLabel setText:[account objectForKey:@"username"]];
+        }];
+        
+        
+        return cell;
+    }
+    else
+    {
+        NSString *stCellIdentifier = @"DocumentCell";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:stCellIdentifier];
+        
+        if(!cell)
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:stCellIdentifier];
+        
+        ICDocument *document = (ICDocument *)[m_aDocuments objectAtIndex:indexPath.row];
+        
+        // Setup Views
+        UIImageView *thumbnailImageView = (UIImageView *)[cell viewWithTag:Thumbnail];
+        [thumbnailImageView.layer setCornerRadius:5.0f];
+        UILabel *filenameLabel = (UILabel *)[cell viewWithTag:Filename];
+        UILabel *filesizeLabel = (UILabel *)[cell viewWithTag:Filesize];
+        UILabel *filetypeLabel = (UILabel *)[cell viewWithTag:Filetype];
+        
+        XLog(@"URL String: %@", [ICPrefs getThumbnailUrlForDocument:document.documentId]);
+        [thumbnailImageView setImageWithURL:[NSURL URLWithString:[ICPrefs getThumbnailUrlForDocument:document.documentId]]
+                           placeholderImage:[UIImage imageNamed:@"FabricBackground.png"]];
+        [filenameLabel setText:document.name];
+        [filesizeLabel setText:[NSString stringWithFormat:@"%.0f kB", (float)[document.documentSize intValue]/1000]];
+        [filetypeLabel setText:[NSString stringWithFormat:@"%@", document.extension]];
+        
+        return cell;
+    }
 }
 
 #pragma mark - UITableView Delegate
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
 }
 
 @end
