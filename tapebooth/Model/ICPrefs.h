@@ -20,6 +20,7 @@
 + (UIBarButtonItem *) getNavigationBarBackItemWithTarget:(id)target andAction:(SEL)action;
 + (UIBarButtonItem *) getNavigationBarSettingsItemWithTarget:(id)target andAction:(SEL)action;
 + (UIBarButtonItem *) getNavigationBarShareItemWithTarget:(id)target andAction:(SEL)action;
++ (UIBarButtonItem *) getNavigationBarMenuItemWithTarget:(id)target andAction:(SEL)action;
 
 #pragma mark - Media
 + (NSString *) getThumbnailUrlForDocument:(NSString *)document;

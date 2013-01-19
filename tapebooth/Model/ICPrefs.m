@@ -81,6 +81,20 @@
     return barButtonItem;
 }
 
++ (UIBarButtonItem *) getNavigationBarMenuItemWithTarget:(id)target andAction:(SEL)action
+{
+    UIImage *buttonImage = [UIImage imageNamed:@"MenuButton.png"];
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.frame = CGRectMake(0, 0, 35, 30);
+    [button setImage:buttonImage
+            forState:UIControlStateNormal];
+    [button addTarget:target
+               action:action
+     forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *barButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+    return barButtonItem;
+}
+
 + (NSString *) getThumbnailUrlForDocument:(NSString *)document
 {
     return [NSString stringWithFormat:@"https://api.doctape.com/v1/doc/%@/thumb_320.jpg", document];
