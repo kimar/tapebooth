@@ -469,6 +469,8 @@
 		ED67404716AAD9FE0096421F /* NameBadge.png in Resources */ = {isa = PBXBuildFile; fileRef = ED67404516AAD9FE0096421F /* NameBadge.png */; };
 		ED889BF416AB1EBB00A2431C /* CKRefreshArrowView.m in Sources */ = {isa = PBXBuildFile; fileRef = ED889BF016AB1EBB00A2431C /* CKRefreshArrowView.m */; };
 		ED889BF516AB1EBB00A2431C /* CKRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = ED889BF316AB1EBB00A2431C /* CKRefreshControl.m */; };
+		ED889C0916AB299F00A2431C /* MenuButton.png in Resources */ = {isa = PBXBuildFile; fileRef = ED889C0716AB299F00A2431C /* MenuButton.png */; };
+		ED889C0A16AB299F00A2431C /* MenuButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ED889C0816AB299F00A2431C /* MenuButton@2x.png */; };
 		ED9BE09916AA17B20000E61D /* ICAuthViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9BE09816AA17B20000E61D /* ICAuthViewViewController.m */; };
 		ED9E688E16AA139F00AE10BC /* NSString+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9E688D16AA139F00AE10BC /* NSString+URLEncoding.m */; };
 		EDB39BC516AA257800614C87 /* ICApiRequestController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB39BC416AA257800614C87 /* ICApiRequestController.m */; };
@@ -1344,6 +1346,8 @@
 		ED889BF116AB1EBB00A2431C /* CKRefreshControl-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CKRefreshControl-Prefix.pch"; sourceTree = "<group>"; };
 		ED889BF216AB1EBB00A2431C /* CKRefreshControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKRefreshControl.h; sourceTree = "<group>"; };
 		ED889BF316AB1EBB00A2431C /* CKRefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKRefreshControl.m; sourceTree = "<group>"; };
+		ED889C0716AB299F00A2431C /* MenuButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuButton.png; sourceTree = "<group>"; };
+		ED889C0816AB299F00A2431C /* MenuButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MenuButton@2x.png"; sourceTree = "<group>"; };
 		ED9BE09716AA17B20000E61D /* ICAuthViewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICAuthViewViewController.h; sourceTree = "<group>"; };
 		ED9BE09816AA17B20000E61D /* ICAuthViewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ICAuthViewViewController.m; sourceTree = "<group>"; };
 		ED9E688C16AA139F00AE10BC /* NSString+URLEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+URLEncoding.h"; sourceTree = "<group>"; };
@@ -2822,6 +2826,8 @@
 		ED63104D16AA2F42001E0CE2 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				ED889C0716AB299F00A2431C /* MenuButton.png */,
+				ED889C0816AB299F00A2431C /* MenuButton@2x.png */,
 				ED587F4B16AB04C90033F2D7 /* ShareButton.png */,
 				ED587F4C16AB04C90033F2D7 /* ShareButton@2x.png */,
 				ED22467F16AAE62800EA102E /* DocumentPlaceholder.png */,
@@ -3224,6 +3230,8 @@
 				ED39B9D616AB108F00B13817 /* 01package-contents.xml in Resources */,
 				ED39B9D716AB108F00B13817 /* 01package.xml in Resources */,
 				ED39B9D816AB108F00B13817 /* index.xml in Resources */,
+				ED889C0916AB299F00A2431C /* MenuButton.png in Resources */,
+				ED889C0A16AB299F00A2431C /* MenuButton@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

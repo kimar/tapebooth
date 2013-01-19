@@ -70,6 +70,7 @@ typedef enum
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"TopBar.png"]
                                                   forBarMetrics:UIBarMetricsDefault];
     [self.navigationItem setRightBarButtonItem:[ICPrefs getNavigationBarSettingsItemWithTarget:self andAction:@selector(showActionSheet:)]];
+    [self.navigationItem setLeftBarButtonItem:[ICPrefs getNavigationBarMenuItemWithTarget:self andAction:@selector(toggleMenu:)]];
     
     m_MenuTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 150, kScreenHeight) style:UITableViewStylePlain];
     [m_MenuTableView setBackgroundColor:[UIColor clearColor]];
@@ -166,7 +167,7 @@ typedef enum
                                                              delegate:self
                                                     cancelButtonTitle:@"Cancel"
                                                destructiveButtonTitle:NULL
-                                                    otherButtonTitles:@"Take photo", @"About", nil];
+                                                    otherButtonTitles:@"Add Photo", @"About", nil];
     actionSheet.tag = ActionActionSheet;
     [actionSheet showInView:self.view];
 }
@@ -222,6 +223,14 @@ typedef enum
     DLCImagePickerController *picker = [[DLCImagePickerController alloc] init];
     picker.delegate = self;
     [self presentModalViewController:picker animated:YES];
+}
+
+- (IBAction) toggleMenu:(id)sender
+{
+    if([m_PaperFoldView leftFoldView].state == PaperFoldStateDefault)
+        [m_PaperFoldView setPaperFoldState:PaperFoldStateLeftUnfolded];
+    else
+        [m_PaperFoldView setPaperFoldState:PaperFoldStateDefault];
 }
 
 #pragma mark - DLCImagePickerControllerDelegate
@@ -431,11 +440,11 @@ typedef enum
             
             if(indexPath.row == 1)
             {
-                [textLabel setText:@"Photo"];
+                [textLabel setText:@"Add Photo"];
             }
             else if (indexPath.row == 2)
             {
-                [textLabel setText:@"Video"];
+                [textLabel setText:@"Add Video"];
             }
         }
         
