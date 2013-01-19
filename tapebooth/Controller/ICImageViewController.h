@@ -10,6 +10,7 @@
 
 @interface ICImageViewController : UIViewController
 
+@property (nonatomic, retain) UIImage *image;
 @property (nonatomic, retain) NSString *imageUrl;
 @property (nonatomic, retain) NSString *headerTitle;
 @property (nonatomic, retain) UIActivityIndicatorView *activityIndicator;

@@ -6,13 +6,19 @@
 //  Copyright (c) 2013 Marcus Kida [indiecoder.net]. All rights reserved.
 //
 
+typedef enum
+{
+    NameAlertView = 100
+} AlertViewTags;
+
 #import "ICImageViewController.h"
 
-@interface ICImageViewController ()
+@interface ICImageViewController () <UIAlertViewDelegate>
 {
     IBOutlet UIImageView *m_ImageView;
     IBOutlet UIActivityIndicatorView *m_ActivityIndicator;
     
+    UIImage *m_pImage;
     NSString *m_stImageUrl;
     NSString *m_stTitle;
 }
@@ -23,6 +29,7 @@
 @synthesize imageUrl = m_stImageUrl;
 @synthesize headerTitle = m_stTitle;
 @synthesize activityIndicator = m_ActivityIndicator;
+@synthesize image = m_pImage;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -59,18 +66,51 @@
 {
     [super viewWillAppear:animated];
     
-    __weak ICImageViewController *controller = self;
-    [m_ImageView setImageWithURL:[NSURL URLWithString:m_stImageUrl] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
-        if(!error)
-        {
-            [controller.activityIndicator setHidden:YES];
-        }
-        else
-        {
-            // Needs warning to inform user that something went wrong
-            [self.navigationController popViewControllerAnimated:YES];
-        }
-    }];
+    if(m_pImage)
+    {
+        [m_ImageView setImage:m_pImage];
+        [m_ActivityIndicator setHidden:YES];
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Note"
+                                                        message:@"Please name your photo:"
+                                                       delegate:self
+                                              cancelButtonTitle:@"Cancel"
+                                              otherButtonTitles:@"Upload", nil];
+        alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+        alert.tag = NameAlertView;
+        [alert show];
+    }
+    else
+    {
+        __weak ICImageViewController *controller = self;
+        [m_ImageView setImageWithURL:[NSURL URLWithString:m_stImageUrl] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
+            if(!error)
+            {
+                [controller.activityIndicator setHidden:YES];
+            }
+            else
+            {
+                // Needs warning to inform user that something went wrong
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+        }];
+    }
+}
+
+#pragma mark - AlertView Delegate
+- (void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if(alertView.tag == NameAlertView)
+    {
+        [ICApiRequestController postDocumentWithJpegData:UIImageJPEGRepresentation(m_ImageView.image, .8f)
+                                             andFilename:[(UITextField *)[alertView textFieldAtIndex:0] text]
+                                             andProgress:^(long long totalBytesWritten, long long totalBytesExpectedToWrite) {
+                                                 XLog(@"Sent %llu of %llu bytes", totalBytesWritten, totalBytesExpectedToWrite);
+                                             } 
+                                           andCompletion:^(BOOL success) {
+                                               XLog(@"Success: %@", success?@"YES":@"NO");
+                                           }];
+    }
 }
 
 @end
