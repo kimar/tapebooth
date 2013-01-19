@@ -29,6 +29,16 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    
+    [self.navigationItem setTitleView:[ICPrefs getNavigationBarLabelWithText:@"Login"]];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"TopBar.png"]
+                                                  forBarMetrics:UIBarMetricsDefault];
+    [self.navigationItem setLeftBarButtonItem:[ICPrefs getNavigationBarBackItemWithTarget:self andAction:@selector(popBack:)]];
+}
+
+- (void) popBack: (id)sender
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning
