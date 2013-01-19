@@ -49,6 +49,7 @@ typedef enum
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"TopBar.png"]
                                                   forBarMetrics:UIBarMetricsDefault];
     [self.navigationItem setLeftBarButtonItem:[ICPrefs getNavigationBarBackItemWithTarget:self andAction:@selector(popBack:)]];
+    [self.navigationItem setRightBarButtonItem:[ICPrefs getNavigationBarShareItemWithTarget:self andAction:@selector(showShareActionSheet:)]];
 }
 
 - (void) popBack: (id)sender
@@ -82,24 +83,6 @@ typedef enum
     }
     else
     {
-        /*__weak ICImageViewController *controller = self;
-        [m_ImageView setImageWithURL:[NSURL URLWithString:m_stImageUrl] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
-            if(!error)
-            {
-                [controller.activityIndicator setHidden:YES];
-            }
-            else
-            {
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Note"
-                                                                message:@"Sorry, but viewing is only supported for image files at the moment."
-                                                               delegate:nil
-                                                      cancelButtonTitle:@"OK"
-                                                      otherButtonTitles:nil, nil];
-                [alert show];
-                
-                [self.navigationController popViewControllerAnimated:YES];
-            }
-        }];*/
         [ICApiRequestController getImageWithDocumentUrl:m_stImageUrl
                                             andProgress:^(long long totalBytesWritten, long long totalBytesExpectedToWrite) {
                                                 
@@ -110,6 +93,12 @@ typedef enum
                                                 [m_ImageView setImage:image];
                                             }];
     }
+}
+
+#pragma mark - IBActions
+- (IBAction) showShareActionSheet:(id)sender
+{
+    
 }
 
 #pragma mark - AlertView Delegate
