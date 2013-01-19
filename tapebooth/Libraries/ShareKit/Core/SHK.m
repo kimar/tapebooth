@@ -784,10 +784,10 @@ NSString* SHKLocalizedStringFormat(NSString* key)
 {
   static NSBundle* bundle = nil;
   if (nil == bundle) {
-    NSString* path = [[SHK shareKitLibraryBundlePath] stringByAppendingPathComponent:@"ShareKit.bundle"];
+      NSString* path = [[NSBundle mainBundle] pathForResource:@"ShareKit" ofType:@"bundle"];//[[SHK shareKitLibraryBundlePath] stringByAppendingPathComponent:@"ShareKit.bundle"];
     bundle = [[NSBundle bundleWithPath:path] retain];
     
-    NSCAssert(bundle != nil,@"ShareKit has been refactored to be used as Xcode subproject. Please follow the updated installation wiki and re-add it to the project. Please do not forget to clean project and clean build folder afterwards");
+    //NSCAssert(bundle != nil,@"ShareKit has been refactored to be used as Xcode subproject. Please follow the updated installation wiki and re-add it to the project. Please do not forget to clean project and clean build folder afterwards");
   }
   return [bundle localizedStringForKey:key value:key table:nil];
 }
