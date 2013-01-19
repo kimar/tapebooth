@@ -10,8 +10,18 @@
 
 @interface ICPrefs : NSObject
 
+#pragma mark - Acces Token
 + (void) setAccessToken:(NSString *)accessToken;
 + (NSString *) getAccessToken;
 + (BOOL) hasAccessToken;
+
+#pragma mark - Navigation Bar
++ (UILabel *) getNavigationBarLabelWithText:(NSString *)text;
++ (UIBarButtonItem *) getNavigationBarBackItemWithTarget:(id)target andAction:(SEL)action;
++ (UIBarButtonItem *) getNavigationBarSettingsItemWithTarget:(id)target andAction:(SEL)action;
+
+#pragma mark - Media
++ (NSString *) getThumbnailUrlForDocument:(NSString *)document;
++ (NSString *) getOriginalUrlForDocument:(NSString *)document;
 
 @end
