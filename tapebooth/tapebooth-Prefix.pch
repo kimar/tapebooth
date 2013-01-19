@@ -26,6 +26,7 @@
     #import "PaperFoldView.h"
     #import "GPUImage.h"
     #import "DLCImagePickerController.h"
+    #import "SHK.h"
 // Data Model
     #import "ICPrefs.h"
     #import "ICDocument.h"
