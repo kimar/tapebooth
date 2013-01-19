@@ -10,7 +10,7 @@
 
 @interface ICPrefs : NSObject
 
-#pragma mark - Acces Token
+#pragma mark - Access Token
 + (void) setAccessToken:(NSString *)accessToken;
 + (NSString *) getAccessToken;
 + (BOOL) hasAccessToken;
