@@ -15,9 +15,11 @@
     #import <MobileCoreServices/MobileCoreServices.h>
     #import <Foundation/Foundation.h>
     #import <CoreData/CoreData.h>
+    #import <QuartzCore/QuartzCore.h>
     #import "NSString+URLEncoding.h"
     #import "ICDefinitions.h"
     #import "AFNetworking.h"
+    #import "UIImageView+WebCache.h"
 // Data Model
     #import "ICPrefs.h"
     #import "ICDocument.h"

@@ -19,7 +19,7 @@
             </objects>
             <point key="canvasLocation" x="-751" y="23"/>
         </scene>
-        <!--Welcome View Controller-->
+        <!--Welcome View Controller - tapebooth-->
         <scene sceneID="FyC-nF-jFE">
             <objects>
                 <viewController id="qYo-cS-QFy" customClass="ICWelcomeViewController" sceneMemberID="viewController">
@@ -27,11 +27,14 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="6hZ-em-yxi">
-                                <rect key="frame" x="32" y="252" width="257" height="44"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="FabricBackground.png" id="qJ0-db-Gk8">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="S9T-VZ-EZv">
+                                <rect key="frame" x="14" y="163" width="293" height="179"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Click here to auth">
+                                <state key="normal" title="Button" image="GreetingOverlay.png">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -39,20 +42,100 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="authButtonPressed:" destination="qYo-cS-QFy" eventType="touchUpInside" id="g8J-fE-l9U"/>
+                                    <action selector="authButtonPressed:" destination="qYo-cS-QFy" eventType="touchUpInside" id="aEg-zi-pS2"/>
                                 </connections>
                             </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="90" sectionHeaderHeight="22" sectionFooterHeight="22" id="Upe-cY-6ls">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="gray" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DocumentCell" rowHeight="90" id="uOW-7i-5zd">
+                                        <rect key="frame" x="0.0" y="22" width="320" height="90"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="300" height="89"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="DocumentCellBackground.png" id="MC5-e3-EKI">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="89"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="103" contentMode="left" text="txt" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="6" id="YRE-3i-V9N">
+                                                    <rect key="frame" x="224" y="30" width="64" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <color key="textColor" white="0.25" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="100" contentMode="scaleAspectFill" id="Y3O-Yb-hUi">
+                                                    <rect key="frame" x="6" y="5" width="80" height="80"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="101" contentMode="left" text="Filename" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" id="qxW-oo-aNe">
+                                                    <rect key="frame" x="94" y="7" width="214" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="102" contentMode="left" text="Filesize" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" id="Ofy-IK-WzG">
+                                                    <rect key="frame" x="94" y="30" width="134" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <connections>
+                                            <segue destination="yEp-1E-KGA" kind="push" identifier="ShowImageView" id="XNc-iq-Lz1"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="qYo-cS-QFy" id="wQr-Cj-WaV"/>
+                                    <outlet property="delegate" destination="qYo-cS-QFy" id="FEH-qq-Kgf"/>
+                                </connections>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="87M-bp-xtw"/>
+                    <navigationItem key="navigationItem" title="tapebooth" id="87M-bp-xtw"/>
                     <connections>
+                        <outlet property="m_SignInButton" destination="S9T-VZ-EZv" id="9qQ-es-JOh"/>
+                        <outlet property="m_TableView" destination="Upe-cY-6ls" id="6U2-MC-QgC"/>
                         <segue destination="Any-Dq-ihc" kind="push" identifier="ShowWebView" id="Par-mO-aaT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SUa-aS-tqh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-74" y="23"/>
+        </scene>
+        <!--Image View Controller-->
+        <scene sceneID="ZP6-ub-fwo">
+            <objects>
+                <viewController id="yEp-1E-KGA" customClass="ICImageViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="lXX-5P-WDp">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" id="POH-S7-Ph3">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="K8A-U6-ckM"/>
+                    <connections>
+                        <outlet property="m_ImageView" destination="POH-S7-Ph3" id="IfT-qT-4XN"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eex-eq-7vO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="408" y="713"/>
         </scene>
         <!--Auth View View Controller-->
         <scene sceneID="WJ7-UN-Cil">
@@ -83,6 +166,11 @@
             <point key="canvasLocation" x="408" y="23"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="DocumentCellBackground.png" width="320" height="90"/>
+        <image name="FabricBackground.png" width="320" height="568"/>
+        <image name="GreetingOverlay.png" width="293" height="179"/>
+    </resources>
     <classes>
         <class className="ICAuthViewViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ICAuthViewViewController.h"/>
@@ -90,10 +178,19 @@
                 <relationship kind="outlet" name="m_WebView" candidateClass="UIWebView"/>
             </relationships>
         </class>
+        <class className="ICImageViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ICImageViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="m_ImageView" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
         <class className="ICWelcomeViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ICWelcomeViewController.h"/>
             <relationships>
                 <relationship kind="action" name="authButtonPressed:"/>
+                <relationship kind="action" name="showImprint:"/>
+                <relationship kind="outlet" name="m_SignInButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="m_TableView" candidateClass="UITableView"/>
             </relationships>
         </class>
     </classes>
