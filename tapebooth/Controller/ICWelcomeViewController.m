@@ -37,11 +37,13 @@ typedef enum
     IBOutlet UIView *m_pMainView;
     
     BOOL m_bShowsShotPhoto;
+    BOOL m_bManualRefresh;
     UIImage *m_ShotPhoto;
     UITableView *m_MenuTableView;
     NSMutableArray *m_aDocuments;
     EIImagePickerDelegate *m_pImagePickerDelegate;
     NSData *m_ImageData;
+    CKRefreshControl *m_RefreshControl;
 }
 @end
 
@@ -85,6 +87,18 @@ typedef enum
     [m_PaperFoldView setLeftFoldContentView:menuCarrierView foldCount:3 pullFactor:.9f];
     [m_PaperFoldView setCenterContentView:m_pMainView];
     [m_PaperFoldView setEnableLeftFoldDragging:NO];
+    
+    // Refresh Control
+    m_RefreshControl = [CKRefreshControl new];
+    //m_RefreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"This is a test"];
+    [m_RefreshControl addTarget:self action:@selector(doRefresh:) forControlEvents:UIControlEventValueChanged];
+    [m_TableView addSubview:m_RefreshControl];
+}
+
+- (void)doRefresh:(CKRefreshControl *)sender
+{
+    m_bManualRefresh = YES;
+    [self refreshDocuments];
 }
 
 - (void)didReceiveMemoryWarning
@@ -126,6 +140,12 @@ typedef enum
         
         m_aDocuments = [[NSMutableArray alloc] initWithArray:documents];
         [m_TableView reloadData];
+        
+        if(m_bManualRefresh)
+        {
+            [m_RefreshControl performSelector:@selector(endRefreshing) withObject:nil afterDelay:1.0];
+            m_bManualRefresh = NO;
+        }
     }];
 }
 

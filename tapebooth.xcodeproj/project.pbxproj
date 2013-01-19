@@ -467,6 +467,8 @@
 		ED67404316AAD9510096421F /* ProfileBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ED67404116AAD9510096421F /* ProfileBackground@2x.png */; };
 		ED67404616AAD9FE0096421F /* NameBadge@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ED67404416AAD9FE0096421F /* NameBadge@2x.png */; };
 		ED67404716AAD9FE0096421F /* NameBadge.png in Resources */ = {isa = PBXBuildFile; fileRef = ED67404516AAD9FE0096421F /* NameBadge.png */; };
+		ED889BF416AB1EBB00A2431C /* CKRefreshArrowView.m in Sources */ = {isa = PBXBuildFile; fileRef = ED889BF016AB1EBB00A2431C /* CKRefreshArrowView.m */; };
+		ED889BF516AB1EBB00A2431C /* CKRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = ED889BF316AB1EBB00A2431C /* CKRefreshControl.m */; };
 		ED9BE09916AA17B20000E61D /* ICAuthViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9BE09816AA17B20000E61D /* ICAuthViewViewController.m */; };
 		ED9E688E16AA139F00AE10BC /* NSString+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9E688D16AA139F00AE10BC /* NSString+URLEncoding.m */; };
 		EDB39BC516AA257800614C87 /* ICApiRequestController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB39BC416AA257800614C87 /* ICApiRequestController.m */; };
@@ -1337,6 +1339,11 @@
 		ED67404116AAD9510096421F /* ProfileBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ProfileBackground@2x.png"; sourceTree = "<group>"; };
 		ED67404416AAD9FE0096421F /* NameBadge@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NameBadge@2x.png"; sourceTree = "<group>"; };
 		ED67404516AAD9FE0096421F /* NameBadge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NameBadge.png; sourceTree = "<group>"; };
+		ED889BEF16AB1EBB00A2431C /* CKRefreshArrowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKRefreshArrowView.h; sourceTree = "<group>"; };
+		ED889BF016AB1EBB00A2431C /* CKRefreshArrowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKRefreshArrowView.m; sourceTree = "<group>"; };
+		ED889BF116AB1EBB00A2431C /* CKRefreshControl-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CKRefreshControl-Prefix.pch"; sourceTree = "<group>"; };
+		ED889BF216AB1EBB00A2431C /* CKRefreshControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKRefreshControl.h; sourceTree = "<group>"; };
+		ED889BF316AB1EBB00A2431C /* CKRefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKRefreshControl.m; sourceTree = "<group>"; };
 		ED9BE09716AA17B20000E61D /* ICAuthViewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICAuthViewViewController.h; sourceTree = "<group>"; };
 		ED9BE09816AA17B20000E61D /* ICAuthViewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ICAuthViewViewController.m; sourceTree = "<group>"; };
 		ED9E688C16AA139F00AE10BC /* NSString+URLEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+URLEncoding.h"; sourceTree = "<group>"; };
@@ -2867,6 +2874,18 @@
 			path = SDWebImage;
 			sourceTree = "<group>";
 		};
+		ED889BEE16AB1EBA00A2431C /* CKRefreshControl */ = {
+			isa = PBXGroup;
+			children = (
+				ED889BEF16AB1EBB00A2431C /* CKRefreshArrowView.h */,
+				ED889BF016AB1EBB00A2431C /* CKRefreshArrowView.m */,
+				ED889BF116AB1EBB00A2431C /* CKRefreshControl-Prefix.pch */,
+				ED889BF216AB1EBB00A2431C /* CKRefreshControl.h */,
+				ED889BF316AB1EBB00A2431C /* CKRefreshControl.m */,
+			);
+			path = CKRefreshControl;
+			sourceTree = "<group>";
+		};
 		ED9E688B16AA139F00AE10BC /* Categories */ = {
 			isa = PBXGroup;
 			children = (
@@ -3020,6 +3039,7 @@
 		EDCDA0D516A9CA6B00D2B614 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				ED889BEE16AB1EBA00A2431C /* CKRefreshControl */,
 				ED39B94616AB108E00B13817 /* FacebookSDK */,
 				ED58823C16AB09970033F2D7 /* JSONKit */,
 				ED587F5016AB06740033F2D7 /* ShareKit */,
@@ -3568,6 +3588,8 @@
 				ED39B9D316AB108F00B13817 /* FBSBJsonBase.m in Sources */,
 				ED39B9D416AB108F00B13817 /* FBSBJsonParser.m in Sources */,
 				ED39B9D516AB108F00B13817 /* FBSBJsonWriter.m in Sources */,
+				ED889BF416AB1EBB00A2431C /* CKRefreshArrowView.m in Sources */,
+				ED889BF516AB1EBB00A2431C /* CKRefreshControl.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
