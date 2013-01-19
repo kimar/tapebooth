@@ -52,7 +52,12 @@
     [super viewDidAppear:animated];
     
     NSURL *url = [NSURL URLWithString:
-                   [NSString stringWithFormat:@"https://my.doctape.com/oauth2?client_id=%@&response_type=token&redirect_uri=%@&scope=docs&state=", [kOAuthAppId urlEncodeUsingEncoding:NSUTF8StringEncoding], [kOAuthRedirectUrl urlEncodeUsingEncoding:NSUTF8StringEncoding]]];
+                   [NSString stringWithFormat:@"https://my.doctape.com/oauth2?client_id=%@&response_type=token&redirect_uri=%@&scope=%@&state=",
+                    [kOAuthAppId urlEncodeUsingEncoding:NSUTF8StringEncoding],
+                    [kOAuthRedirectUrl urlEncodeUsingEncoding:NSUTF8StringEncoding],
+                    [@"account docs upload" urlEncodeUsingEncoding:NSUTF8StringEncoding]
+                    ]
+                  ];
     [m_WebView loadRequest:[NSURLRequest requestWithURL:url]];
 }
 
