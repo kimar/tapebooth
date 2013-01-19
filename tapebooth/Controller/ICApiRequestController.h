@@ -13,5 +13,6 @@
 + (void) getAccountDataWithCompletion:(void (^)(NSDictionary *account))block;
 + (void) getAllDocumentsWithCompletion:(void (^)(NSArray *documents))block;
 + (void) postDocumentWithJpegData:(NSData *)data andFilename:(NSString *)filename andProgress:(void (^)(long long totalBytesWritten, long long totalBytesExpectedToWrite))progress andCompletion:(void (^)(BOOL success))block;
++ (void) getImageWithDocumentUrl:(NSString *)documentUrl andProgress:(void (^)(long long totalBytesWritten, long long totalBytesExpectedToWrite))progress andCompletion:(void (^)(UIImage *image))block;
 
 @end

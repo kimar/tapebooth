@@ -146,4 +146,40 @@
     [operation start];
 }
 
++ (void) getImageWithDocumentUrl:(NSString *)documentUrl andProgress:(void (^)(long long, long long))progress andCompletion:(void (^)(UIImage *))block
+{
+    NSString *stUrl = documentUrl;
+    NSURL *url = [NSURL URLWithString:stUrl];
+    XLog(@"URL: %@", stUrl);
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    [request setValue:[NSString stringWithFormat:@"Bearer %@", [ICPrefs getAccessToken]] forHTTPHeaderField:@"Authorization"];
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+
+        [BWStatusBarOverlay dismissAnimated:YES];
+        block([UIImage imageWithData:responseObject]);
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        XLog(@"Failure,ERROR: %@", [error localizedDescription]);
+        [ICPrefs setAccessToken:NULL];
+        [BWStatusBarOverlay dismissAnimated:YES];
+        block(NULL);
+        
+    }];
+    
+    [operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
+        double expected = [[NSNumber numberWithLongLong:totalBytesExpectedToRead] doubleValue];
+        double written = [[NSNumber numberWithLongLong:totalBytesRead] doubleValue];
+        double dProgress = written/expected;
+        [BWStatusBarOverlay setProgress:dProgress animated:YES];
+        
+        progress(totalBytesRead, totalBytesExpectedToRead);
+    }];
+    
+    [BWStatusBarOverlay showLoadingWithMessage:@"Loading Preview..." animated:YES];
+    [operation start];
+}
+
 @end
