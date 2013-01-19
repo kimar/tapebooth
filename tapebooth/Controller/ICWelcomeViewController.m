@@ -17,7 +17,8 @@ typedef enum
 typedef enum
 {
     PhotoActionSheet = 100,
-    ActionActionSheet
+    ActionActionSheet,
+    NameAlertView
 } ActionSheetAlertViewTags;
 
 typedef enum
@@ -28,7 +29,7 @@ typedef enum
 
 #import "ICWelcomeViewController.h"
 
-@interface ICWelcomeViewController () <UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, UIAlertViewDelegate>
+@interface ICWelcomeViewController () <UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, UIAlertViewDelegate, DLCImagePickerDelegate>
 {
     IBOutlet UITableView *m_TableView;
     IBOutlet UIButton *m_SignInButton;
@@ -40,6 +41,7 @@ typedef enum
     UITableView *m_MenuTableView;
     NSMutableArray *m_aDocuments;
     EIImagePickerDelegate *m_pImagePickerDelegate;
+    NSData *m_ImageData;
 }
 @end
 
@@ -144,7 +146,7 @@ typedef enum
                                                              delegate:self
                                                     cancelButtonTitle:@"Cancel"
                                                destructiveButtonTitle:NULL
-                                                    otherButtonTitles:@"Upload photo", @"About", nil];
+                                                    otherButtonTitles:@"Take photo", @"About", nil];
     actionSheet.tag = ActionActionSheet;
     [actionSheet showInView:self.view];
 }
@@ -195,6 +197,68 @@ typedef enum
     }
 }
 
+- (IBAction) captureStillImage:(id)sender
+{
+    DLCImagePickerController *picker = [[DLCImagePickerController alloc] init];
+    picker.delegate = self;
+    [self presentModalViewController:picker animated:YES];
+}
+
+#pragma mark - DLCImagePickerControllerDelegate
+-(void) imagePickerControllerDidCancel:(DLCImagePickerController *)picker{
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+-(void) imagePickerController:(DLCImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:NO];
+    [self dismissModalViewControllerAnimated:YES];
+    
+    if (info) {
+        /*ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+        [library writeImageDataToSavedPhotosAlbum:[info objectForKey:@"data"] metadata:nil completionBlock:^(NSURL *assetURL, NSError *error)
+         {
+             if (error) {
+                 NSLog(@"ERROR: the image failed to be written");
+             }
+             else {
+                 NSLog(@"PHOTO SAVED - assetURL: %@", assetURL);
+             }
+         }];*/
+    
+    m_ImageData = [info objectForKey:@"data"];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Note"
+                                                    message:@"Please name your photo."
+                                                   delegate:self
+                                          cancelButtonTitle:@"Cancel"
+                                          otherButtonTitles:@"Upload", nil];
+    alert.tag = NameAlertView;
+    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+    [alert show];
+        
+    }
+}
+
+#pragma mark - Alertview Delegate
+- (void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if(alertView.tag == NameAlertView)
+    {
+        if(buttonIndex == 1)
+        {
+            [ICApiRequestController postDocumentWithJpegData:m_ImageData
+                                                 andFilename:[(UITextField *)[alertView textFieldAtIndex:0] text]
+                                                 andProgress:^(long long totalBytesWritten, long long totalBytesExpectedToWrite) {
+                                                     XLog(@"Sent %llu of %llu bytes", totalBytesWritten, totalBytesExpectedToWrite);
+                                                 }
+                                               andCompletion:^(BOOL success) {
+                                                   XLog(@"Success: %@", success?@"YES":@"NO");
+                                                   if(success)
+                                                       [self refreshDocuments];
+                                               }];
+        }
+    }
+}
+
 # pragma mark - UIActionSheetDelegate
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -220,7 +284,7 @@ typedef enum
         switch (buttonIndex)
         {
             case 0:
-                [self selectPhotoSource:NULL];
+                [self captureStillImage:NULL];
                 break;
                 
             case 1:
@@ -341,10 +405,18 @@ typedef enum
             [textLabel setBackgroundColor:[UIColor clearColor]];
             [textLabel setTextColor:[UIColor whiteColor]];
             [textLabel setShadowColor:[UIColor blackColor]];
-            [textLabel setText:@"Upload"];
             [textLabel setFont:[UIFont boldSystemFontOfSize:15.0f]];
             [textLabel setTextAlignment:NSTextAlignmentCenter];
             [cell.contentView addSubview:textLabel];
+            
+            if(indexPath.row == 1)
+            {
+                [textLabel setText:@"Photo"];
+            }
+            else if (indexPath.row == 2)
+            {
+                [textLabel setText:@"Video"];
+            }
         }
         
         
@@ -387,7 +459,11 @@ typedef enum
     {
         if(indexPath.row == 1)
         {
-            [self showActionSheet:NULL];
+            [self captureStillImage:NULL];
+        }
+        else if(indexPath.row == 2)
+        {
+
         }
     }
 }
