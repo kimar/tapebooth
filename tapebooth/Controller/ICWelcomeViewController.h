@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ICImageViewController.h"
 
 @interface ICWelcomeViewController : UIViewController
 
