@@ -474,6 +474,7 @@ typedef enum
         [filenameLabel setText:document.name];
         [filesizeLabel setText:[NSString stringWithFormat:@"%.0f kB", (float)[document.documentSize intValue]/1000]];
         [filetypeLabel setText:[NSString stringWithFormat:@"%@", document.extension]];
+        [filetypeLabel.layer setCornerRadius:5.0f];
         
         return cell;
     }
