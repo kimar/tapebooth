@@ -82,7 +82,7 @@ typedef enum
     }
     else
     {
-        __weak ICImageViewController *controller = self;
+        /*__weak ICImageViewController *controller = self;
         [m_ImageView setImageWithURL:[NSURL URLWithString:m_stImageUrl] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
             if(!error)
             {
@@ -99,7 +99,16 @@ typedef enum
                 
                 [self.navigationController popViewControllerAnimated:YES];
             }
-        }];
+        }];*/
+        [ICApiRequestController getImageWithDocumentUrl:m_stImageUrl
+                                            andProgress:^(long long totalBytesWritten, long long totalBytesExpectedToWrite) {
+                                                
+                                                
+                                            } andCompletion:^(UIImage *image) {
+                                                
+                                                [m_ActivityIndicator setHidden:YES];
+                                                [m_ImageView setImage:image];
+                                            }];
     }
 }
 
