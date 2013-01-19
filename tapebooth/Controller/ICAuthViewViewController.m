@@ -82,9 +82,7 @@
                 NSString *stToken = (NSString *)[splittedUrl objectAtIndex:0];
                 //XLog(@"Token: %@", stToken);
                 
-                [[NSUserDefaults standardUserDefaults] setObject:stToken forKey:kAuthTokenKey];
-                [[NSUserDefaults standardUserDefaults] synchronize];
-                
+                [ICPrefs setAccessToken:stToken];
                 [self.navigationController popViewControllerAnimated:YES];
             }
         }
