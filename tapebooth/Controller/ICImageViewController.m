@@ -98,7 +98,10 @@ typedef enum
 #pragma mark - IBActions
 - (IBAction) showShareActionSheet:(id)sender
 {
-    SHKItem *item = [SHKItem image:m_ImageView.image title:self.headerTitle];
+    SHKItem *item = [SHKItem image:m_ImageView.image
+                             title:
+                     [NSString stringWithFormat:@"%@ #tapebooth", self.headerTitle]
+                     ];
     SHKActionSheet *actionSheet = [SHKActionSheet actionSheetForItem:item];
     [SHK setRootViewController:self];
     [actionSheet showInView:self.view];
