@@ -471,6 +471,7 @@
 		ED889BF516AB1EBB00A2431C /* CKRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = ED889BF316AB1EBB00A2431C /* CKRefreshControl.m */; };
 		ED889C0916AB299F00A2431C /* MenuButton.png in Resources */ = {isa = PBXBuildFile; fileRef = ED889C0716AB299F00A2431C /* MenuButton.png */; };
 		ED889C0A16AB299F00A2431C /* MenuButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ED889C0816AB299F00A2431C /* MenuButton@2x.png */; };
+		ED8A130C16AC27A10066F24C /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED8A130B16AC27A10066F24C /* MediaPlayer.framework */; };
 		ED9BE09916AA17B20000E61D /* ICAuthViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9BE09816AA17B20000E61D /* ICAuthViewViewController.m */; };
 		ED9E688E16AA139F00AE10BC /* NSString+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9E688D16AA139F00AE10BC /* NSString+URLEncoding.m */; };
 		EDB39BC516AA257800614C87 /* ICApiRequestController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB39BC416AA257800614C87 /* ICApiRequestController.m */; };
@@ -1348,6 +1349,7 @@
 		ED889BF316AB1EBB00A2431C /* CKRefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKRefreshControl.m; sourceTree = "<group>"; };
 		ED889C0716AB299F00A2431C /* MenuButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuButton.png; sourceTree = "<group>"; };
 		ED889C0816AB299F00A2431C /* MenuButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MenuButton@2x.png"; sourceTree = "<group>"; };
+		ED8A130B16AC27A10066F24C /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		ED9BE09716AA17B20000E61D /* ICAuthViewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICAuthViewViewController.h; sourceTree = "<group>"; };
 		ED9BE09816AA17B20000E61D /* ICAuthViewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ICAuthViewViewController.m; sourceTree = "<group>"; };
 		ED9E688C16AA139F00AE10BC /* NSString+URLEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+URLEncoding.h"; sourceTree = "<group>"; };
@@ -1410,6 +1412,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED8A130C16AC27A10066F24C /* MediaPlayer.framework in Frameworks */,
 				ED58824316AB0B060033F2D7 /* libsqlite3.dylib in Frameworks */,
 				ED58824116AB0ADE0033F2D7 /* Accounts.framework in Frameworks */,
 				ED58807F16AB06CD0033F2D7 /* CoreLocation.framework in Frameworks */,
@@ -2949,6 +2952,7 @@
 		EDCDA0AD16A9C94000D2B614 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				ED8A130B16AC27A10066F24C /* MediaPlayer.framework */,
 				ED58824216AB0B060033F2D7 /* libsqlite3.dylib */,
 				ED58824016AB0ADE0033F2D7 /* Accounts.framework */,
 				ED58807E16AB06CD0033F2D7 /* CoreLocation.framework */,

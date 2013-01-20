@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MediaPlayer/MediaPlayer.h>
+
 #import "ICImageViewController.h"
 
 @interface ICWelcomeViewController : UIViewController

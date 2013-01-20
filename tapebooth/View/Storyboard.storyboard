@@ -94,9 +94,6 @@
                                                     </subviews>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </view>
-                                                <connections>
-                                                    <segue destination="yEp-1E-KGA" kind="push" identifier="ShowImageView" id="XNc-iq-Lz1"/>
-                                                </connections>
                                             </tableViewCell>
                                         </prototypes>
                                         <connections>
@@ -117,6 +114,7 @@
                         <outlet property="m_TableView" destination="Upe-cY-6ls" id="6U2-MC-QgC"/>
                         <outlet property="m_pMainView" destination="Y4f-QQ-Xd9" id="zPp-Ed-dBF"/>
                         <segue destination="Any-Dq-ihc" kind="push" identifier="ShowWebView" id="Par-mO-aaT"/>
+                        <segue destination="yEp-1E-KGA" kind="push" identifier="ShowImageView" id="oFg-XP-ILe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SUa-aS-tqh" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -18,7 +18,8 @@ typedef enum
 {
     PhotoActionSheet = 100,
     ActionActionSheet,
-    NameAlertView
+    ImageNameAlertView,
+    VideoNameAlertView
 } ActionSheetAlertViewTags;
 
 typedef enum
@@ -29,7 +30,7 @@ typedef enum
 
 #import "ICWelcomeViewController.h"
 
-@interface ICWelcomeViewController () <UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, UIAlertViewDelegate, DLCImagePickerDelegate>
+@interface ICWelcomeViewController () <UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, UIAlertViewDelegate, DLCImagePickerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 {
     IBOutlet UITableView *m_TableView;
     IBOutlet UIButton *m_SignInButton;
@@ -44,6 +45,7 @@ typedef enum
     EIImagePickerDelegate *m_pImagePickerDelegate;
     NSData *m_ImageData;
     CKRefreshControl *m_RefreshControl;
+    NSIndexPath *m_SelectedIndexPath;
 }
 @end
 
@@ -243,6 +245,41 @@ typedef enum
     [self presentModalViewController:picker animated:YES];
 }
 
+- (IBAction) captureVideo:(id)sender
+{
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+	{
+        UIImagePickerController *videoRecorder = [[UIImagePickerController alloc] init];
+        videoRecorder.sourceType = UIImagePickerControllerSourceTypeCamera;
+        [videoRecorder setDelegate:self];
+        
+        NSArray *mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeCamera];
+        NSArray *videoMediaTypesOnly = [mediaTypes filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(SELF contains %@)", @"movie"]];
+        
+        if ([videoMediaTypesOnly count] == 0)		//Is movie output possible?
+        {
+            UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Sorry but your device does not support video recording"
+                                                                     delegate:nil
+                                                            cancelButtonTitle:@"OK"
+                                                       destructiveButtonTitle:nil
+                                                            otherButtonTitles:nil];
+            [actionSheet showInView:[[self view] window]];
+        }
+        else
+        {
+            //Select front facing camera if possible
+            if ([UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceRear])
+                videoRecorder.cameraDevice = UIImagePickerControllerCameraDeviceRear;
+            
+            videoRecorder.mediaTypes = videoMediaTypesOnly;
+            videoRecorder.videoQuality = UIImagePickerControllerQualityTypeMedium;
+            videoRecorder.videoMaximumDuration = 180;			//Specify in seconds (600 is default)
+            
+            [self presentModalViewController:videoRecorder animated:YES];
+        }
+    }
+}
+
 - (IBAction) toggleMenu:(id)sender
 {
     if([m_PaperFoldView leftFoldView].state == PaperFoldStateDefault)
@@ -251,12 +288,46 @@ typedef enum
         [m_PaperFoldView setPaperFoldState:PaperFoldStateDefault];
 }
 
-#pragma mark - DLCImagePickerControllerDelegate
--(void) imagePickerControllerDidCancel:(DLCImagePickerController *)picker{
+#pragma mark - UIImagePickerControllerDelegate
+- (void) imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
     [self dismissModalViewControllerAnimated:YES];
 }
 
--(void) imagePickerController:(DLCImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+- (void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:NO];
+    [self dismissModalViewControllerAnimated:YES];
+    
+    if(info)
+    {
+        NSError *error;
+        m_ImageData = [NSData dataWithContentsOfURL:[info objectForKey:UIImagePickerControllerMediaURL]
+                                            options:NSDataReadingUncached
+                                              error:&error];
+        
+        if(!error)
+        {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Note"
+                                                            message:@"Please name your video:"
+                                                           delegate:self
+                                                  cancelButtonTitle:@"Cancel"
+                                                  otherButtonTitles:@"Upload", nil];
+            alert.tag = VideoNameAlertView;
+            alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+            [alert show];
+        }
+    }
+}
+
+#pragma mark - DLCImagePickerControllerDelegate
+-(void) stillImagePickerControllerDidCancel:(DLCImagePickerController *)picker
+{
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+-(void) stillImagePickerController:(DLCImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:NO];
     [self dismissModalViewControllerAnimated:YES];
     
@@ -274,11 +345,11 @@ typedef enum
     
     m_ImageData = [info objectForKey:@"data"];
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Note"
-                                                    message:@"Please name your photo."
+                                                    message:@"Please name your photo:"
                                                    delegate:self
                                           cancelButtonTitle:@"Cancel"
                                           otherButtonTitles:@"Upload", nil];
-    alert.tag = NameAlertView;
+    alert.tag = ImageNameAlertView;
     alert.alertViewStyle = UIAlertViewStylePlainTextInput;
     [alert show];
         
@@ -288,7 +359,7 @@ typedef enum
 #pragma mark - Alertview Delegate
 - (void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if(alertView.tag == NameAlertView)
+    if(alertView.tag == ImageNameAlertView)
     {
         if(buttonIndex == 1)
         {
@@ -298,6 +369,22 @@ typedef enum
                                                      XLog(@"Sent %llu of %llu bytes", totalBytesWritten, totalBytesExpectedToWrite);
                                                  }
                                                andCompletion:^(BOOL success) {
+                                                   XLog(@"Success: %@", success?@"YES":@"NO");
+                                                   if(success)
+                                                       [self refreshDocuments];
+                                               }];
+        }
+    }
+    else if(alertView.tag == VideoNameAlertView)
+    {
+        if(buttonIndex == 1)
+        {
+            [ICApiRequestController postDocumentWithMovData:m_ImageData
+                                                andFilename:[(UITextField *)[alertView textFieldAtIndex:0] text]
+                                                andProgress:^(long long totalBytesWritten, long long totalBytesExpectedToWrite) {
+                                                     XLog(@"Sent %llu of %llu bytes", totalBytesWritten, totalBytesExpectedToWrite);
+                                                 }
+                                              andCompletion:^(BOOL success) {
                                                    XLog(@"Success: %@", success?@"YES":@"NO");
                                                    if(success)
                                                        [self refreshDocuments];
@@ -359,7 +446,7 @@ typedef enum
         }
         else
         {
-            ICDocument *document = (ICDocument *)[m_aDocuments objectAtIndex:[m_TableView indexPathForSelectedRow].row];
+            ICDocument *document = (ICDocument *)[m_aDocuments objectAtIndex:m_SelectedIndexPath.row];
             viewController.imageUrl = [ICPrefs getOriginalUrlForDocument:document.documentId];
             viewController.headerTitle = document.name;
         }
@@ -375,7 +462,7 @@ typedef enum
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if(tableView.tag == MenuTableView)
-        return 2;
+        return 3;
     else
         return [m_aDocuments count];
 }
@@ -487,15 +574,16 @@ typedef enum
         UILabel *filetypeLabel = (UILabel *)[cell viewWithTag:Filetype];
         
         // Determine if mediatype is viewable
-        if(![document.mediaType isEqualToString:@"image"])
-        {
-            [cell setAccessoryType:UITableViewCellAccessoryNone];
-            cell.userInteractionEnabled = NO;
-        }
-        else
+        if([document.mediaType isEqualToString:@"image"]/* ||
+           [document.mediaType isEqualToString:@"video"]*/)
         {
             [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
             cell.userInteractionEnabled = YES;
+        }
+        else
+        {
+            [cell setAccessoryType:UITableViewCellAccessoryNone];
+            cell.userInteractionEnabled = NO;
         }
         
         XLog(@"URL String: %@", [ICPrefs getThumbnailUrlForDocument:document.documentId]);
@@ -514,7 +602,7 @@ typedef enum
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
+
     if(tableView.tag == MenuTableView)
     {
         if(indexPath.row == 1)
@@ -523,7 +611,30 @@ typedef enum
         }
         else if(indexPath.row == 2)
         {
+            [self captureVideo:NULL];
+        }
+    }
+    else if(tableView.tag == MainTableView)
+    {
+        m_SelectedIndexPath = indexPath;
+        XLog(@"Did select row: %d", indexPath.row);
+        
+        ICDocument *pDocument = (ICDocument *)[m_aDocuments objectAtIndex:indexPath.row];
+        XLog(@"MediaType: %@", pDocument.mediaType);
+        
+        if([pDocument.mediaType isEqualToString:@"image"])
+        {
+            [self performSegueWithIdentifier:@"ShowImageView" sender:self];
+        }
+        else if([pDocument.mediaType isEqualToString:@"video"])
+        {
+            NSString *stUrl = [ICPrefs getOriginalUrlForDocument:pDocument.documentId];
+            XLog(@"Playing video at url: %@", stUrl);
 
+            MPMoviePlayerViewController *viewController = [[MPMoviePlayerViewController alloc] initWithContentURL:
+                                                           [NSURL URLWithString:stUrl]
+                                                           ];
+            [self presentMoviePlayerViewControllerAnimated:viewController];
         }
     }
 }
