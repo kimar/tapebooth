@@ -574,8 +574,8 @@ typedef enum
         UILabel *filetypeLabel = (UILabel *)[cell viewWithTag:Filetype];
         
         // Determine if mediatype is viewable
-        if([document.mediaType isEqualToString:@"image"]/* ||
-           [document.mediaType isEqualToString:@"video"]*/)
+        if([document.mediaType isEqualToString:@"image"] ||
+           [document.mediaType isEqualToString:@"video"])
         {
             [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
             cell.userInteractionEnabled = YES;
@@ -628,7 +628,10 @@ typedef enum
         }
         else if([pDocument.mediaType isEqualToString:@"video"])
         {
-            NSString *stUrl = [ICPrefs getOriginalUrlForDocument:pDocument.documentId];
+            NSString *stUrl = [NSString stringWithFormat:@"%@?access_token=%@",
+                               [ICPrefs getOriginalUrlForDocument:pDocument.documentId],
+                               [[ICPrefs getAccessToken] urlEncodeUsingEncoding:NSUTF8StringEncoding]
+                               ];
             XLog(@"Playing video at url: %@", stUrl);
 
             MPMoviePlayerViewController *viewController = [[MPMoviePlayerViewController alloc] initWithContentURL:
