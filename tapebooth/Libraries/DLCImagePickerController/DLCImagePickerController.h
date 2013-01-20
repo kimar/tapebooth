@@ -14,8 +14,8 @@
 
 @protocol DLCImagePickerDelegate <NSObject>
 @optional
-- (void)imagePickerController:(DLCImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info;
-- (void)imagePickerControllerDidCancel:(DLCImagePickerController *)picker;
+- (void)stillImagePickerController:(DLCImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info;
+- (void)stillImagePickerControllerDidCancel:(DLCImagePickerController *)picker;
 @end
 
 @interface DLCImagePickerController : UIViewController <UINavigationControllerDelegate,UIImagePickerControllerDelegate> {

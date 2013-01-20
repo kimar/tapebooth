@@ -409,7 +409,7 @@
 
         NSDictionary *info = [[NSDictionary alloc] initWithObjectsAndKeys:
                               UIImageJPEGRepresentation(currentFilteredVideoFrame, self.outputJPEGQuality), @"data", nil];
-        [self.delegate imagePickerController:self didFinishPickingMediaWithInfo:info];
+        [self.delegate stillImagePickerController:self didFinishPickingMediaWithInfo:info];
     }
 }
 
@@ -441,7 +441,7 @@
 }
 
 -(IBAction) cancel:(id)sender {
-    [self.delegate imagePickerControllerDidCancel:self];
+    [self.delegate stillImagePickerControllerDidCancel:self];
 }
 
 -(IBAction) handlePan:(UIGestureRecognizer *) sender {
@@ -684,7 +684,7 @@
     if (isStatic) {
         // TODO: fix this hack
         [self dismissViewControllerAnimated:NO completion:nil];
-        [self.delegate imagePickerControllerDidCancel:self];
+        [self.delegate stillImagePickerControllerDidCancel:self];
     } else {
         [self dismissViewControllerAnimated:YES completion:nil];
         [self retakePhoto:nil];
