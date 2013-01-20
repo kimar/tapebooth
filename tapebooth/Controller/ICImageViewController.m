@@ -83,11 +83,11 @@ typedef enum
     }
     else
     {
-        [ICApiRequestController getImageWithDocumentUrl:m_stImageUrl
-                                            andProgress:^(long long totalBytesWritten, long long totalBytesExpectedToWrite) {
+        [ICApiRequestController getFileWithDocumentUrl:m_stImageUrl
+                                           andProgress:^(long long totalBytesWritten, long long totalBytesExpectedToWrite) {
                                                 
                                                 
-                                            } andCompletion:^(UIImage *image) {
+                                        } andCompletion:^(UIImage *image) {
                                                 
                                                 [m_ActivityIndicator setHidden:YES];
                                                 [m_ImageView setImage:image];
