@@ -486,6 +486,18 @@ typedef enum
         UILabel *filesizeLabel = (UILabel *)[cell viewWithTag:Filesize];
         UILabel *filetypeLabel = (UILabel *)[cell viewWithTag:Filetype];
         
+        // Determine if mediatype is viewable
+        if(![document.mediaType isEqualToString:@"image"])
+        {
+            [cell setAccessoryType:UITableViewCellAccessoryNone];
+            cell.userInteractionEnabled = NO;
+        }
+        else
+        {
+            [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+            cell.userInteractionEnabled = YES;
+        }
+        
         XLog(@"URL String: %@", [ICPrefs getThumbnailUrlForDocument:document.documentId]);
         [thumbnailImageView setImageWithURL:[NSURL URLWithString:[ICPrefs getThumbnailUrlForDocument:document.documentId]]
                            placeholderImage:[UIImage imageNamed:@"DocumentPlaceholder.png"]];
