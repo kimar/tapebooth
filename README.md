@@ -6,6 +6,6 @@ This App has been created from Jan 18th to Jan 20th in 2013 as part of the @doct
 
 Many thanks go to [MediaLoot](http://medialoot.com) for their free iOS GUI Template.
 
-![image](Screenshots/Screen1.png)
-![image](Screenshots/Screen2.png)
-![image](Screenshots/Screen3.png)
+![image](https://raw.github.com/kimar/tapebooth/github/Screenshots/Screen1.png)
+![image](https://raw.github.com/kimar/tapebooth/github/Screenshots/Screen2.png)
+![image](https://raw.github.com/kimar/tapebooth/github/Screenshots/Screen3.png)
