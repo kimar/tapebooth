@@ -3,7 +3,7 @@
 //  tapebooth
 //
 //  Created by Marcus Kida on 19.01.13.
-//  Copyright (c) 2013 Marcus Kida [indiecoder.net]. All rights reserved.
+//  Copyright (c) 2013 Marcus Kida [marcuskida.de]. All rights reserved.
 //
 
 #import "ICPrefs.h"
@@ -103,6 +103,16 @@
 + (NSString *) getOriginalUrlForDocument:(NSString *)document
 {
     return [NSString stringWithFormat:@"https://api.doctape.com/v1/doc/%@/original", document];
+}
+
++ (NSString *) getVideo640UrlForDocument:(NSString *)document
+{
+    return [NSString stringWithFormat:@"https://api.doctape.com/v1/doc/%@/video_640.mp4", document];
+}
+
++ (NSString *) getVideo1280UrlForDocument:(NSString *)document
+{
+    return [NSString stringWithFormat:@"https://api.doctape.com/v1/doc/%@/video_1280.mp4", document];
 }
 
 @end
