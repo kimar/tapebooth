@@ -3,7 +3,7 @@
 //  tapebooth
 //
 //  Created by Marcus Kida on 19.01.13.
-//  Copyright (c) 2013 Marcus Kida [indiecoder.net]. All rights reserved.
+//  Copyright (c) 2013 Marcus Kida [marcuskida.de]. All rights reserved.
 //
 
 #import "ICApiRequestController.h"
@@ -130,7 +130,7 @@
         {
             XLog(@"Success: %@", JSON);
         }
-
+                
         [BWStatusBarOverlay dismissAnimated:YES];
         block(YES);
 
