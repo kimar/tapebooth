@@ -3,7 +3,7 @@
 //  tapebooth
 //
 //  Created by Marcus Kida on 18.01.13.
-//  Copyright (c) 2013 Marcus Kida [indiecoder.net]. All rights reserved.
+//  Copyright (c) 2013 Marcus Kida [marcuskida.de]. All rights reserved.
 //
 
 #import "ICAppDelegate.h"
@@ -24,6 +24,12 @@
     // Configure ShareKit
     DefaultSHKConfigurator *configurator = [[DefaultSHKConfigurator alloc] init];
     [SHKConfiguration sharedInstanceWithConfigurator:configurator];
+    
+    //Configure TestFlight
+#ifdef DEBUG
+    [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
+#endif
+    [TestFlight takeOff:kTestFlightAppToken];
     
     return YES;
 }

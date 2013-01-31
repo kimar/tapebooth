@@ -17,6 +17,7 @@
     #import <CoreData/CoreData.h>
     #import <QuartzCore/QuartzCore.h>
     #import <AssetsLibrary/AssetsLibrary.h>
+    #import "TestFlight.h"
     #import "NSString+URLEncoding.h"
     #import "ICDefinitions.h"
     #import "AFNetworking.h"

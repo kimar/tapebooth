@@ -506,6 +506,7 @@
 		EDCDA10816A9CF3A00D2B614 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDCDA10716A9CF3A00D2B614 /* QuartzCore.framework */; };
 		EDCDA10A16A9CF6D00D2B614 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDCDA10916A9CF6D00D2B614 /* Security.framework */; };
 		EDCDA10C16A9CF7200D2B614 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDCDA10B16A9CF7200D2B614 /* CFNetwork.framework */; };
+		EDF37EB316B9EBCB00669186 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EDF37EB116B9EBCB00669186 /* libTestFlight.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -1405,6 +1406,8 @@
 		EDCDA10716A9CF3A00D2B614 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		EDCDA10916A9CF6D00D2B614 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		EDCDA10B16A9CF7200D2B614 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		EDF37EB116B9EBCB00669186 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
+		EDF37EB216B9EBCB00669186 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1436,6 +1439,7 @@
 				EDCDA0B116A9C94000D2B614 /* Foundation.framework in Frameworks */,
 				EDCDA0B316A9C94000D2B614 /* CoreGraphics.framework in Frameworks */,
 				EDCDA0B516A9C94000D2B614 /* CoreData.framework in Frameworks */,
+				EDF37EB316B9EBCB00669186 /* libTestFlight.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3049,6 +3053,7 @@
 		EDCDA0D516A9CA6B00D2B614 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				EDF37EB016B9EBCB00669186 /* TestFlight */,
 				ED889BEE16AB1EBA00A2431C /* CKRefreshControl */,
 				ED39B94616AB108E00B13817 /* FacebookSDK */,
 				ED58823C16AB09970033F2D7 /* JSONKit */,
@@ -3062,6 +3067,15 @@
 				EDB72F9816A9F7C900AB5135 /* AFNetworking */,
 			);
 			path = Libraries;
+			sourceTree = "<group>";
+		};
+		EDF37EB016B9EBCB00669186 /* TestFlight */ = {
+			isa = PBXGroup;
+			children = (
+				EDF37EB116B9EBCB00669186 /* libTestFlight.a */,
+				EDF37EB216B9EBCB00669186 /* TestFlight.h */,
+			);
+			path = TestFlight;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -3666,7 +3680,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Marcus Kida (9V2E3Q9G27)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Marcus Kida";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -3676,7 +3690,7 @@
 				HEADER_SEARCH_PATHS = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "A28D9267-120C-4F08-9903-C378FCFAD4E6";
+				PROVISIONING_PROFILE = "72231EA2-719F-4858-8512-6B0A94B7E81C";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -3688,6 +3702,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "tapebooth/tapebooth-Prefix.pch";
 				INFOPLIST_FILE = "tapebooth/tapebooth-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/tapebooth/Libraries/TestFlight\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -3699,6 +3717,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "tapebooth/tapebooth-Prefix.pch";
 				INFOPLIST_FILE = "tapebooth/tapebooth-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/tapebooth/Libraries/TestFlight\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
