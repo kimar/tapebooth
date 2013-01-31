@@ -39,7 +39,7 @@
 }
 
 - (NSString*)appURL {
-	return @"http://indiecoder.net";
+	return @"http://github.com/kimar/tapebooth";
 }
 
 /*

@@ -184,33 +184,6 @@
         <image name="FabricBackground.png" width="320" height="568"/>
         <image name="GreetingOverlay.png" width="293" height="179"/>
     </resources>
-    <classes>
-        <class className="ICAuthViewViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ICAuthViewViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="m_WebView" candidateClass="UIWebView"/>
-            </relationships>
-        </class>
-        <class className="ICImageViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ICImageViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="m_ActivityIndicator" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="m_ImageView" candidateClass="UIImageView"/>
-            </relationships>
-        </class>
-        <class className="ICWelcomeViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ICWelcomeViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="m_PaperFoldView" candidateClass="PaperFoldView"/>
-                <relationship kind="outlet" name="m_SignInButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="m_TableView" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="m_pMainView" candidateClass="UIView"/>
-            </relationships>
-        </class>
-        <class className="PaperFoldView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PaperFoldView.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
