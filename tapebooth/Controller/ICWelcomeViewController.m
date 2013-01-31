@@ -3,7 +3,7 @@
 //  tapebooth
 //
 //  Created by Marcus Kida on 18.01.13.
-//  Copyright (c) 2013 Marcus Kida [indiecoder.net]. All rights reserved.
+//  Copyright (c) 2013 Marcus Kida [marcuskida.de]. All rights reserved.
 //
 
 typedef enum
@@ -30,7 +30,7 @@ typedef enum
 
 #import "ICWelcomeViewController.h"
 
-@interface ICWelcomeViewController () <UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, UIAlertViewDelegate, DLCImagePickerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface ICWelcomeViewController () <UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, UIAlertViewDelegate, DLCImagePickerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIWebViewDelegate>
 {
     IBOutlet UITableView *m_TableView;
     IBOutlet UIButton *m_SignInButton;
@@ -46,6 +46,7 @@ typedef enum
     NSData *m_ImageData;
     CKRefreshControl *m_RefreshControl;
     NSIndexPath *m_SelectedIndexPath;
+    UIWebView *m_InternalWebView;
 }
 @end
 
@@ -110,6 +111,25 @@ typedef enum
     // Dispose of any resources that can be recreated.
 }
 
+- (void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    if([ICPrefs hasAccessToken])
+    {
+        NSURL *url = [NSURL URLWithString:
+                      [NSString stringWithFormat:@"https://my.doctape.com/oauth2?client_id=%@&response_type=token&redirect_uri=%@&scope=%@&state=",
+                       [kOAuthAppId urlEncodeUsingEncoding:NSUTF8StringEncoding],
+                       [kOAuthRedirectUrl urlEncodeUsingEncoding:NSUTF8StringEncoding],
+                       [@"account docs upload" urlEncodeUsingEncoding:NSUTF8StringEncoding]
+                       ]
+                      ];
+        //XLog(@"GETTING: %@", url.description);
+        [m_InternalWebView setDelegate:self];
+        [m_InternalWebView loadRequest:[NSURLRequest requestWithURL:url]];
+    }
+}
+
 - (void) viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
@@ -119,6 +139,8 @@ typedef enum
     
     if([ICPrefs hasAccessToken])
         [m_PaperFoldView setEnableLeftFoldDragging:YES];
+    else
+        [m_PaperFoldView setEnableLeftFoldDragging:NO];
     
     [self refreshDocuments];
     [self refreshMenu];
@@ -187,7 +209,7 @@ typedef enum
                                                              delegate:self
                                                     cancelButtonTitle:@"Cancel"
                                                destructiveButtonTitle:NULL
-                                                    otherButtonTitles:@"Add Photo", @"About", nil];
+                                                    otherButtonTitles:@"Add Photo", @"Add Video", @"About", nil];
     actionSheet.tag = ActionActionSheet;
     [actionSheet showInView:self.view];
 }
@@ -195,7 +217,7 @@ typedef enum
 - (IBAction) showImprint:(id)sender
 {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Imprint"
-                                                    message:@"Developed from Jan 18th - Jan 20th 2013 by Marcus Kida on a lovely Hackathon at @doctapers somewhere in Hannover Germany.\nhttp://indiecoder.net\n\nMany thanks to MediaLoot.com for their GUI Artwork."
+                                                    message:@"Developed from Jan 18th - Jan 20th 2013 by Marcus Kida on a lovely Hackathon at @doctapers somewhere in Hannover Germany.\nhttp://marcuskida.de\n\nMany thanks to MediaLoot.com for their GUI Artwork."
                                                    delegate:NULL
                                           cancelButtonTitle:@"OK"
                                           otherButtonTitles:nil, nil];
@@ -256,27 +278,34 @@ typedef enum
         NSArray *mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeCamera];
         NSArray *videoMediaTypesOnly = [mediaTypes filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"(SELF contains %@)", @"movie"]];
         
-        if ([videoMediaTypesOnly count] == 0)		//Is movie output possible?
+        if ([videoMediaTypesOnly count] == 0)
         {
-            UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Sorry but your device does not support video recording"
-                                                                     delegate:nil
-                                                            cancelButtonTitle:@"OK"
-                                                       destructiveButtonTitle:nil
-                                                            otherButtonTitles:nil];
-            [actionSheet showInView:[[self view] window]];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                            message:@"Sorry but your device does not support video recording"
+                                                           delegate:NULL
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil, nil];
+            [alert show];
         }
         else
         {
-            //Select front facing camera if possible
             if ([UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceRear])
                 videoRecorder.cameraDevice = UIImagePickerControllerCameraDeviceRear;
             
             videoRecorder.mediaTypes = videoMediaTypesOnly;
             videoRecorder.videoQuality = UIImagePickerControllerQualityTypeMedium;
-            videoRecorder.videoMaximumDuration = 180;			//Specify in seconds (600 is default)
-            
+            videoRecorder.videoMaximumDuration = 180;
             [self presentModalViewController:videoRecorder animated:YES];
         }
+    }
+    else
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                        message:@"Sorry but your device does not support video recording"
+                                                       delegate:NULL
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil, nil];
+        [alert show];
     }
 }
 
@@ -422,9 +451,11 @@ typedef enum
                 break;
                 
             case 1:
+                [self captureVideo:NULL];
+                break;
+            case 2:
                 [self showImprint:NULL];
                 break;
-                
             default:
                 break;
         }
@@ -629,7 +660,7 @@ typedef enum
         else if([pDocument.mediaType isEqualToString:@"video"])
         {
             NSString *stUrl = [NSString stringWithFormat:@"%@?access_token=%@",
-                               [ICPrefs getOriginalUrlForDocument:pDocument.documentId],
+                               [ICPrefs getVideo640UrlForDocument:pDocument.documentId],
                                [[ICPrefs getAccessToken] urlEncodeUsingEncoding:NSUTF8StringEncoding]
                                ];
             XLog(@"Playing video at url: %@", stUrl);
@@ -639,6 +670,17 @@ typedef enum
                                                            ];
             [self presentMoviePlayerViewControllerAnimated:viewController];
         }
+    }
+}
+
+#pragma mark - UIWebView Delegate
+- (void) webViewDidFinishLoad:(UIWebView *)webView
+{
+    NSString *html = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+    if([html rangeOfString:@"Success code="].location != NSNotFound)
+    {
+        NSString *stToken = [html stringByReplacingOccurrencesOfString:@"Success code=" withString:@""];
+        [ICPrefs setAccessToken:stToken];
     }
 }
 
