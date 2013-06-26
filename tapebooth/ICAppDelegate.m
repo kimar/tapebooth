@@ -27,7 +27,7 @@
     
     //Configure TestFlight
 #ifdef DEBUG
-    [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
+    [TestFlight setDeviceIdentifier:[[[UIDevice currentDevice] identifierForVendor] UUIDString]];
 #endif
     [TestFlight takeOff:kTestFlightAppToken];
     
