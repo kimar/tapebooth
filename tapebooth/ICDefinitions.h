@@ -10,6 +10,7 @@
 #define kOAuthAppId                 @""
 #define kOAuthApiAuthUrl            @"https://api.doctape.com/oauth2"
 #define kOAuthRedirectUrl           @"urn:ietf:wg:oauth:2.0:oob"
+#define kOAuthScopes                @"account.read file.create file.read file.update file.delete tape.read tape.update"
 
 // TestFlight
 #define kTestFlightAppToken         @""
