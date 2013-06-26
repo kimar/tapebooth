@@ -121,7 +121,7 @@ typedef enum
                       [NSString stringWithFormat:@"https://my.doctape.com/oauth2?client_id=%@&response_type=token&redirect_uri=%@&scope=%@&state=",
                        [kOAuthAppId urlEncodeUsingEncoding:NSUTF8StringEncoding],
                        [kOAuthRedirectUrl urlEncodeUsingEncoding:NSUTF8StringEncoding],
-                       [@"account docs upload" urlEncodeUsingEncoding:NSUTF8StringEncoding]
+                       [kOAuthScopes urlEncodeUsingEncoding:NSUTF8StringEncoding]
                        ]
                       ];
         //XLog(@"GETTING: %@", url.description);
@@ -264,7 +264,7 @@ typedef enum
 {
     DLCImagePickerController *picker = [[DLCImagePickerController alloc] init];
     picker.delegate = self;
-    [self presentModalViewController:picker animated:YES];
+    [self presentViewController:picker animated:YES completion:nil];
 }
 
 - (IBAction) captureVideo:(id)sender
@@ -295,7 +295,7 @@ typedef enum
             videoRecorder.mediaTypes = videoMediaTypesOnly;
             videoRecorder.videoQuality = UIImagePickerControllerQualityTypeMedium;
             videoRecorder.videoMaximumDuration = 180;
-            [self presentModalViewController:videoRecorder animated:YES];
+            [self presentViewController:videoRecorder animated:YES completion:nil];
         }
     }
     else
@@ -320,13 +320,13 @@ typedef enum
 #pragma mark - UIImagePickerControllerDelegate
 - (void) imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:NO];
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
     
     if(info)
     {
@@ -352,13 +352,13 @@ typedef enum
 #pragma mark - DLCImagePickerControllerDelegate
 -(void) stillImagePickerControllerDidCancel:(DLCImagePickerController *)picker
 {
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 -(void) stillImagePickerController:(DLCImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:NO];
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
     
     if (info) {
         /*ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
@@ -442,7 +442,7 @@ typedef enum
                 break;
         }
     }
-    else if(actionSheet.tag = ActionActionSheet)
+    else if(actionSheet.tag == ActionActionSheet)
     {
         switch (buttonIndex)
         {

@@ -32,7 +32,7 @@
     label.backgroundColor = [UIColor clearColor];
     label.font = [UIFont systemFontOfSize:20.0f];
     //label.shadowColor = [UIColor colorWithWhite:0.0f alpha:0.5f];
-    label.textAlignment = UITextAlignmentCenter;
+    label.textAlignment = NSTextAlignmentCenter;
     label.textColor = [UIColor blackColor];
     label.text = text;
     [label sizeToFit];

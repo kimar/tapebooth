@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>A0560EBB-5414-49A5-8E53-B44BFBBAEDBD</string>
+	<key>IDESourceControlProjectName</key>
+	<string>tapebooth</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>8A6DCD53-2FD0-45F3-B069-A82A7A551D96</key>
+		<string>https://github.com/kimar/tapebooth.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>tapebooth.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>8A6DCD53-2FD0-45F3-B069-A82A7A551D96</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/kimar/tapebooth.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>8A6DCD53-2FD0-45F3-B069-A82A7A551D96</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>8A6DCD53-2FD0-45F3-B069-A82A7A551D96</string>
+			<key>IDESourceControlWCCName</key>
+			<string>tapebooth</string>
+		</dict>
+	</array>
+</dict>
+</plist>
