@@ -21,6 +21,8 @@ typedef enum
     UIImage *m_pImage;
     NSString *m_stImageUrl;
     NSString *m_stTitle;
+    
+    ICApiRequestController *m_pRequestController;
 }
 @end
 
@@ -43,7 +45,8 @@ typedef enum
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+	m_pRequestController = [ICApiRequestController sharedInstance];
+    [m_pRequestController setView:self.view];
     
     [self.navigationItem setTitleView:[ICPrefs getNavigationBarLabelWithText:m_stTitle]];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"TopBar.png"]
@@ -83,7 +86,7 @@ typedef enum
     }
     else
     {
-        [ICApiRequestController getFileWithDocumentUrl:m_stImageUrl
+        [m_pRequestController getFileWithDocumentUrl:m_stImageUrl
                                            andProgress:^(long long totalBytesWritten, long long totalBytesExpectedToWrite) {
                                                 
                                                 
@@ -119,7 +122,7 @@ typedef enum
 {
     if(alertView.tag == NameAlertView)
     {
-        [ICApiRequestController postDocumentWithJpegData:UIImageJPEGRepresentation(m_ImageView.image, .8f)
+        [m_pRequestController postDocumentWithJpegData:UIImageJPEGRepresentation(m_ImageView.image, .8f)
                                              andFilename:[(UITextField *)[alertView textFieldAtIndex:0] text]
                                              andProgress:^(long long totalBytesWritten, long long totalBytesExpectedToWrite) {
                                                  XLog(@"Sent %llu of %llu bytes", totalBytesWritten, totalBytesExpectedToWrite);

@@ -6,11 +6,32 @@
 //  Copyright (c) 2013 Marcus Kida [marcuskida.de]. All rights reserved.
 //
 
+#define kProgressStripesColor       [UIColor colorWithRed:0.541 green:0.827 blue:0.388 alpha:1.000]
+#define kProgressColor              [UIColor greenColor]
+
 #import "ICApiRequestController.h"
+
+@interface ICApiRequestController ()
+{
+    AJProgressPanel *_panel;
+}
+@end
 
 @implementation ICApiRequestController
 
-+ (void) getAccountDataWithCompletion:(void (^)(NSDictionary *account))block
+@synthesize view;
+
++ (id) sharedInstance
+{
+    static ICApiRequestController *controller = nil;
+    if(!controller)
+    {
+        controller = [[ICApiRequestController alloc] init];
+    }
+    return controller;
+}
+
+- (void) getAccountDataWithCompletion:(void (^)(NSDictionary *account))block
 {
     NSString *stUrl = [NSString stringWithFormat:@"https://api.doctape.com/v1/account"];
     NSURL *url = [NSURL URLWithString:stUrl];
@@ -46,7 +67,7 @@
     [operation start];
 }
 
-+ (void) getAllDocumentsWithCompletion:(void (^)(NSArray *documents))block
+- (void) getAllDocumentsWithCompletion:(void (^)(NSArray *documents))block
 {
     NSString *stUrl = [NSString stringWithFormat:@"https://api.doctape.com/v1/doc"];
     NSURL *url = [NSURL URLWithString:stUrl];
@@ -89,7 +110,7 @@
     [operation start];
 }
 
-+ (void) postDocumentWithJpegData:(NSData *)data andFilename:(NSString *)filename andProgress:(void (^)(long long, long long))progress andCompletion:(void (^)(BOOL))block
+- (void) postDocumentWithJpegData:(NSData *)data andFilename:(NSString *)filename andProgress:(void (^)(long long, long long))progress andCompletion:(void (^)(BOOL))block
 {
     NSString *stUrl = [NSString stringWithFormat:@"https://api.doctape.com/v1/doc/upload"];
     NSURL *url = [NSURL URLWithString:stUrl];
@@ -115,7 +136,7 @@
         double expected = [[NSNumber numberWithLongLong:totalBytesExpectedToWrite] doubleValue];
         double written = [[NSNumber numberWithLongLong:totalBytesWritten] doubleValue];
         double dProgress = written/expected;
-        [BWStatusBarOverlay setProgress:dProgress animated:YES];
+        [_panel setProgress:dProgress animated:YES];
         
         progress(totalBytesWritten, totalBytesExpectedToWrite);
     }];
@@ -131,23 +152,25 @@
             XLog(@"Success: %@", JSON);
         }
                 
-        [BWStatusBarOverlay dismissAnimated:YES];
+        [_panel hideAnimated:YES];
         block(YES);
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
-        [BWStatusBarOverlay dismissAnimated:YES];
+        [_panel hide];
         XLog(@"Failure,ERROR: %@", [error localizedDescription]);
         [ICPrefs setAccessToken:NULL];
         block(NO);
         
     }];
     
-    [BWStatusBarOverlay showLoadingWithMessage:@"Uploading photo..." animated:YES];
+    _panel = [AJProgressPanel showInView:view];
+    [_panel setStripesColor:kProgressStripesColor];
+    [_panel setProgressColor:kProgressColor];
     [operation start];
 }
 
-+ (void) postDocumentWithMovData:(NSData *)data andFilename:(NSString *)filename andProgress:(void (^)(long long, long long))progress andCompletion:(void (^)(BOOL))block
+- (void) postDocumentWithMovData:(NSData *)data andFilename:(NSString *)filename andProgress:(void (^)(long long, long long))progress andCompletion:(void (^)(BOOL))block
 {
     NSString *stUrl = [NSString stringWithFormat:@"https://api.doctape.com/v1/doc/upload"];
     NSURL *url = [NSURL URLWithString:stUrl];
@@ -173,7 +196,7 @@
         double expected = [[NSNumber numberWithLongLong:totalBytesExpectedToWrite] doubleValue];
         double written = [[NSNumber numberWithLongLong:totalBytesWritten] doubleValue];
         double dProgress = written/expected;
-        [BWStatusBarOverlay setProgress:dProgress animated:YES];
+        [_panel setProgress:dProgress animated:YES];
         
         progress(totalBytesWritten, totalBytesExpectedToWrite);
     }];
@@ -189,23 +212,25 @@
             XLog(@"Success: %@", JSON);
         }
         
-        [BWStatusBarOverlay dismissAnimated:YES];
+        [_panel hideAnimated:YES];
         block(YES);
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
-        [BWStatusBarOverlay dismissAnimated:YES];
+        [_panel hideAnimated:YES];
         XLog(@"Failure,ERROR: %@", [error localizedDescription]);
         [ICPrefs setAccessToken:NULL];
         block(NO);
         
     }];
     
-    [BWStatusBarOverlay showLoadingWithMessage:@"Uploading video..." animated:YES];
+    _panel = [AJProgressPanel showInView:view];
+    [_panel setStripesColor:kProgressStripesColor];
+    [_panel setProgressColor:kProgressColor];
     [operation start];
 }
 
-+ (void) getFileWithDocumentUrl:(NSString *)documentUrl andProgress:(void (^)(long long, long long))progress andCompletion:(void (^)(UIImage *))block
+- (void) getFileWithDocumentUrl:(NSString *)documentUrl andProgress:(void (^)(long long, long long))progress andCompletion:(void (^)(UIImage *))block
 {
     NSString *stUrl = documentUrl;
     NSURL *url = [NSURL URLWithString:stUrl];
@@ -216,14 +241,14 @@
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
 
-        [BWStatusBarOverlay dismissAnimated:YES];
+        [_panel hideAnimated:YES];
         block([UIImage imageWithData:responseObject]);
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
         XLog(@"Failure,ERROR: %@", [error localizedDescription]);
         [ICPrefs setAccessToken:NULL];
-        [BWStatusBarOverlay dismissAnimated:YES];
+        [_panel hideAnimated:YES];
         block(NULL);
         
     }];
@@ -232,12 +257,14 @@
         double expected = [[NSNumber numberWithLongLong:totalBytesExpectedToRead] doubleValue];
         double written = [[NSNumber numberWithLongLong:totalBytesRead] doubleValue];
         double dProgress = written/expected;
-        [BWStatusBarOverlay setProgress:dProgress animated:YES];
+        [_panel setProgress:dProgress animated:YES];
         
         progress(totalBytesRead, totalBytesExpectedToRead);
     }];
     
-    [BWStatusBarOverlay showLoadingWithMessage:@"Loading Preview..." animated:YES];
+    _panel = [AJProgressPanel showInView:view];
+    [_panel setStripesColor:kProgressStripesColor];
+    [_panel setProgressColor:kProgressColor];
     [operation start];
 }
 

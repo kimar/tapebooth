@@ -7,13 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		ED059C2616AAACFD0085BC0B /* BWStatusBarOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = ED059C1F16AAACFD0085BC0B /* BWStatusBarOverlay.m */; };
-		ED059C2716AAACFD0085BC0B /* status-bar-pattern-black.jpg in Resources */ = {isa = PBXBuildFile; fileRef = ED059C2016AAACFD0085BC0B /* status-bar-pattern-black.jpg */; };
-		ED059C2816AAACFD0085BC0B /* status-bar-pattern-black@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = ED059C2116AAACFD0085BC0B /* status-bar-pattern-black@2x.jpg */; };
-		ED059C2916AAACFD0085BC0B /* status-bar-pattern-default.jpg in Resources */ = {isa = PBXBuildFile; fileRef = ED059C2216AAACFD0085BC0B /* status-bar-pattern-default.jpg */; };
-		ED059C2A16AAACFD0085BC0B /* status-bar-pattern-default@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = ED059C2316AAACFD0085BC0B /* status-bar-pattern-default@2x.jpg */; };
-		ED059C2B16AAACFD0085BC0B /* status-bar-progress.png in Resources */ = {isa = PBXBuildFile; fileRef = ED059C2416AAACFD0085BC0B /* status-bar-progress.png */; };
-		ED059C2C16AAACFD0085BC0B /* status-bar-progress@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ED059C2516AAACFD0085BC0B /* status-bar-progress@2x.png */; };
+		2A20FD7817872EF500AD0DCD /* AJProgressPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A20FD7717872EF500AD0DCD /* AJProgressPanel.m */; };
 		ED1900AC16AA413000865CB2 /* ICImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED1900AB16AA413000865CB2 /* ICImageViewController.m */; };
 		ED22468116AAE62800EA102E /* DocumentPlaceholder.png in Resources */ = {isa = PBXBuildFile; fileRef = ED22467F16AAE62800EA102E /* DocumentPlaceholder.png */; };
 		ED22468216AAE62800EA102E /* AvatarPlaceholder.png in Resources */ = {isa = PBXBuildFile; fileRef = ED22468016AAE62800EA102E /* AvatarPlaceholder.png */; };
@@ -344,14 +338,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		ED059C1E16AAACFD0085BC0B /* BWStatusBarOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWStatusBarOverlay.h; sourceTree = "<group>"; };
-		ED059C1F16AAACFD0085BC0B /* BWStatusBarOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWStatusBarOverlay.m; sourceTree = "<group>"; };
-		ED059C2016AAACFD0085BC0B /* status-bar-pattern-black.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "status-bar-pattern-black.jpg"; sourceTree = "<group>"; };
-		ED059C2116AAACFD0085BC0B /* status-bar-pattern-black@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "status-bar-pattern-black@2x.jpg"; sourceTree = "<group>"; };
-		ED059C2216AAACFD0085BC0B /* status-bar-pattern-default.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "status-bar-pattern-default.jpg"; sourceTree = "<group>"; };
-		ED059C2316AAACFD0085BC0B /* status-bar-pattern-default@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "status-bar-pattern-default@2x.jpg"; sourceTree = "<group>"; };
-		ED059C2416AAACFD0085BC0B /* status-bar-progress.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "status-bar-progress.png"; sourceTree = "<group>"; };
-		ED059C2516AAACFD0085BC0B /* status-bar-progress@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "status-bar-progress@2x.png"; sourceTree = "<group>"; };
+		2A20FD7617872EF500AD0DCD /* AJProgressPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AJProgressPanel.h; sourceTree = "<group>"; };
+		2A20FD7717872EF500AD0DCD /* AJProgressPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AJProgressPanel.m; sourceTree = "<group>"; };
 		ED1900AA16AA413000865CB2 /* ICImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICImageViewController.h; sourceTree = "<group>"; };
 		ED1900AB16AA413000865CB2 /* ICImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ICImageViewController.m; sourceTree = "<group>"; };
 		ED22467F16AAE62800EA102E /* DocumentPlaceholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DocumentPlaceholder.png; sourceTree = "<group>"; };
@@ -926,19 +914,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		ED059C1D16AAACFD0085BC0B /* BWStatusBarOverlay */ = {
+		2A20FD7517872EF500AD0DCD /* AJProgressPanel */ = {
 			isa = PBXGroup;
 			children = (
-				ED059C1E16AAACFD0085BC0B /* BWStatusBarOverlay.h */,
-				ED059C1F16AAACFD0085BC0B /* BWStatusBarOverlay.m */,
-				ED059C2016AAACFD0085BC0B /* status-bar-pattern-black.jpg */,
-				ED059C2116AAACFD0085BC0B /* status-bar-pattern-black@2x.jpg */,
-				ED059C2216AAACFD0085BC0B /* status-bar-pattern-default.jpg */,
-				ED059C2316AAACFD0085BC0B /* status-bar-pattern-default@2x.jpg */,
-				ED059C2416AAACFD0085BC0B /* status-bar-progress.png */,
-				ED059C2516AAACFD0085BC0B /* status-bar-progress@2x.png */,
+				2A20FD7617872EF500AD0DCD /* AJProgressPanel.h */,
+				2A20FD7717872EF500AD0DCD /* AJProgressPanel.m */,
 			);
-			path = BWStatusBarOverlay;
+			path = AJProgressPanel;
 			sourceTree = "<group>";
 		};
 		ED22468416AAEE4400EA102E /* GPUImage */ = {
@@ -1694,12 +1676,12 @@
 		EDCDA0D516A9CA6B00D2B614 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				2A20FD7517872EF500AD0DCD /* AJProgressPanel */,
 				EDF37EB016B9EBCB00669186 /* TestFlight */,
 				ED889BEE16AB1EBA00A2431C /* CKRefreshControl */,
 				ED22486416AAF2F300EA102E /* DLCImagePickerController */,
 				ED22468416AAEE4400EA102E /* GPUImage */,
 				ED37F3E316AABDB8000388AF /* PaperFold */,
-				ED059C1D16AAACFD0085BC0B /* BWStatusBarOverlay */,
 				ED5E2F9716AA99DC00BB1418 /* EssentialImager */,
 				ED63105B16AA3520001E0CE2 /* SDWebImage */,
 				EDB72F9816A9F7C900AB5135 /* AFNetworking */,
@@ -1788,12 +1770,6 @@
 				ED63108616AA3EC9001E0CE2 /* BackBarButton.png in Resources */,
 				ED287BE716AA4A8A009C2344 /* Icon@2x.png in Resources */,
 				ED287BEA16AA4A8E009C2344 /* Icon.png in Resources */,
-				ED059C2716AAACFD0085BC0B /* status-bar-pattern-black.jpg in Resources */,
-				ED059C2816AAACFD0085BC0B /* status-bar-pattern-black@2x.jpg in Resources */,
-				ED059C2916AAACFD0085BC0B /* status-bar-pattern-default.jpg in Resources */,
-				ED059C2A16AAACFD0085BC0B /* status-bar-pattern-default@2x.jpg in Resources */,
-				ED059C2B16AAACFD0085BC0B /* status-bar-progress.png in Resources */,
-				ED059C2C16AAACFD0085BC0B /* status-bar-progress@2x.png in Resources */,
 				ED37F3FF16AABDB8000388AF /* PaperFoldResources.bundle in Resources */,
 				ED37F40216AABDB8000388AF /* swipe_guide.psd in Resources */,
 				ED37F40316AABDB8000388AF /* swipe_guide2.psd in Resources */,
@@ -1924,7 +1900,6 @@
 				ED5E2FAE16AA99DC00BB1418 /* EIImagePickerDelegate.m in Sources */,
 				ED5E2FAF16AA99DC00BB1418 /* StandardPaths.m in Sources */,
 				ED5E2FB016AA99DC00BB1418 /* UIImage+Resize.m in Sources */,
-				ED059C2616AAACFD0085BC0B /* BWStatusBarOverlay.m in Sources */,
 				ED37F3FB16AABDB8000388AF /* FacingView.m in Sources */,
 				ED37F3FC16AABDB8000388AF /* FoldView.m in Sources */,
 				ED37F3FD16AABDB8000388AF /* MultiFoldView.m in Sources */,
@@ -2088,6 +2063,7 @@
 				ED22487716AAF2F300EA102E /* GrayscaleContrastFilter.m in Sources */,
 				ED889BF416AB1EBB00A2431C /* CKRefreshArrowView.m in Sources */,
 				ED889BF516AB1EBB00A2431C /* CKRefreshControl.m in Sources */,
+				2A20FD7817872EF500AD0DCD /* AJProgressPanel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

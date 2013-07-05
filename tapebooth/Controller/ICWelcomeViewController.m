@@ -47,6 +47,7 @@ typedef enum
     CKRefreshControl *m_RefreshControl;
     NSIndexPath *m_SelectedIndexPath;
     UIWebView *m_InternalWebView;
+    ICApiRequestController *m_pRequestController;
 }
 @end
 
@@ -67,7 +68,8 @@ typedef enum
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+	m_pRequestController = [ICApiRequestController sharedInstance];
+    [m_pRequestController setView:self.view];
     
     [self.navigationItem setTitleView:[ICPrefs getNavigationBarLabelWithText:@"tapebooth"]];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"TopBar.png"]
@@ -149,7 +151,7 @@ typedef enum
 #pragma mark - PrivateMethods
 - (void) refreshDocuments
 {
-    [ICApiRequestController getAllDocumentsWithCompletion:^(NSArray *documents) {
+    [m_pRequestController getAllDocumentsWithCompletion:^(NSArray *documents) {
         XLog(@"Documents: %d", [documents count]);
         
         if([documents count] > 0)
@@ -392,7 +394,7 @@ typedef enum
     {
         if(buttonIndex == 1)
         {
-            [ICApiRequestController postDocumentWithJpegData:m_ImageData
+            [m_pRequestController postDocumentWithJpegData:m_ImageData
                                                  andFilename:[(UITextField *)[alertView textFieldAtIndex:0] text]
                                                  andProgress:^(long long totalBytesWritten, long long totalBytesExpectedToWrite) {
                                                      XLog(@"Sent %llu of %llu bytes", totalBytesWritten, totalBytesExpectedToWrite);
@@ -408,7 +410,7 @@ typedef enum
     {
         if(buttonIndex == 1)
         {
-            [ICApiRequestController postDocumentWithMovData:m_ImageData
+            [m_pRequestController postDocumentWithMovData:m_ImageData
                                                 andFilename:[(UITextField *)[alertView textFieldAtIndex:0] text]
                                                 andProgress:^(long long totalBytesWritten, long long totalBytesExpectedToWrite) {
                                                      XLog(@"Sent %llu of %llu bytes", totalBytesWritten, totalBytesExpectedToWrite);
@@ -548,7 +550,7 @@ typedef enum
             
             [cell.contentView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"ProfileBackground.png"]]];
             
-            [ICApiRequestController getAccountDataWithCompletion:^(NSDictionary *account) {
+            [m_pRequestController getAccountDataWithCompletion:^(NSDictionary *account) {
                 XLog(@"Avatar: %@", [account objectForKey:@"avatar"]);
                 [profileImageView setImageWithURL:
                  [NSURL URLWithString:[account objectForKey:@"avatar"]]

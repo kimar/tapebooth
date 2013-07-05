@@ -7,7 +7,7 @@
 //
 
 // OAuth
-#define kOAuthAppId                 @""
+#define kOAuthAppId                 @"109189f2-f204-4bde-8278-12b0d283f223"
 #define kOAuthApiAuthUrl            @"https://api.doctape.com/oauth2"
 #define kOAuthRedirectUrl           @"urn:ietf:wg:oauth:2.0:oob"
 #define kOAuthScopes                @"account.read file.create file.read file.update file.delete tape.read tape.update"
