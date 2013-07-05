@@ -21,8 +21,10 @@ typedef enum
     UIImage *m_pImage;
     NSString *m_stImageUrl;
     NSString *m_stTitle;
+    NSString *m_stDocumentId;
     
     ICApiRequestController *m_pRequestController;
+    ICFilesystemController *m_pFsController;
 }
 @end
 
@@ -32,6 +34,7 @@ typedef enum
 @synthesize headerTitle = m_stTitle;
 @synthesize activityIndicator = m_ActivityIndicator;
 @synthesize image = m_pImage;
+@synthesize documentId = m_stDocumentId;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -47,6 +50,8 @@ typedef enum
     [super viewDidLoad];
 	m_pRequestController = [ICApiRequestController sharedInstance];
     [m_pRequestController setView:self.view];
+    
+    m_pFsController = [ICFilesystemController sharedInstance];
     
     [self.navigationItem setTitleView:[ICPrefs getNavigationBarLabelWithText:m_stTitle]];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"TopBar.png"]
@@ -86,15 +91,23 @@ typedef enum
     }
     else
     {
-        [m_pRequestController getFileWithDocumentUrl:m_stImageUrl
-                                           andProgress:^(long long totalBytesWritten, long long totalBytesExpectedToWrite) {
-                                                
-                                                
-                                        } andCompletion:^(UIImage *image) {
-                                                
-                                                [m_ActivityIndicator setHidden:YES];
-                                                [m_ImageView setImage:image];
-                                            }];
+        if([m_pFsController cachedFileExists:m_stDocumentId])
+        {
+            [m_ImageView setImage:[UIImage imageWithData:[m_pFsController dataForCachedFile:m_stDocumentId]]];
+        }
+        else
+        {
+            [m_pRequestController getFileWithDocumentUrl:m_stImageUrl
+                                             andProgress:^(long long totalBytesWritten, long long totalBytesExpectedToWrite) {
+                                                 
+                                                 
+                                             } andCompletion:^(UIImage *image) {
+                                                 
+                                                 [m_ActivityIndicator setHidden:YES];
+                                                 [m_ImageView setImage:image];
+                                                 [m_pFsController storeData:UIImagePNGRepresentation(image) forCachedFile:m_stDocumentId];
+                                             }];
+        }
     }
 }
 

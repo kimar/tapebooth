@@ -482,6 +482,7 @@ typedef enum
             ICDocument *document = (ICDocument *)[m_aDocuments objectAtIndex:m_SelectedIndexPath.row];
             viewController.imageUrl = [ICPrefs getOriginalUrlForDocument:document.documentId];
             viewController.headerTitle = document.name;
+            viewController.documentId = document.documentId;
         }
     }
 }

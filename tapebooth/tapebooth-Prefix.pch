@@ -28,6 +28,7 @@
     #import "DLCImagePickerController.h"
     #import "CKRefreshControl.h"
     #import "AJProgressPanel.h"
+    #import "ICFilesystemController.h"
 // Data Model
     #import "ICPrefs.h"
     #import "ICDocument.h"

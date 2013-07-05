@@ -14,5 +14,6 @@
 @property (nonatomic, retain) NSString *imageUrl;
 @property (nonatomic, retain) NSString *headerTitle;
 @property (nonatomic, retain) UIActivityIndicatorView *activityIndicator;
+@property (nonatomic, retain) NSString *documentId;
 
 @end
