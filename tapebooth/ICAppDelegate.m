@@ -20,11 +20,7 @@
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];*/
-    
-    // Configure ShareKit
-    DefaultSHKConfigurator *configurator = [[DefaultSHKConfigurator alloc] init];
-    [SHKConfiguration sharedInstanceWithConfigurator:configurator];
-    
+
     //Configure TestFlight
 #ifdef DEBUG
     [TestFlight setDeviceIdentifier:[[[UIDevice currentDevice] identifierForVendor] UUIDString]];

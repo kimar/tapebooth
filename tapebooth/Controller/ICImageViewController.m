@@ -98,13 +98,20 @@ typedef enum
 #pragma mark - IBActions
 - (IBAction) showShareActionSheet:(id)sender
 {
-    SHKItem *item = [SHKItem image:m_ImageView.image
-                             title:
-                     [NSString stringWithFormat:@"%@ #tapebooth", self.headerTitle]
-                     ];
-    SHKActionSheet *actionSheet = [SHKActionSheet actionSheetForItem:item];
-    [SHK setRootViewController:self];
-    [actionSheet showInView:self.view];
+    if([UIImagePNGRepresentation(m_ImageView.image) length] > 0)
+    {
+        UIActivityViewController *viewController = [[UIActivityViewController alloc] initWithActivityItems:@[m_ImageView.image, [NSString stringWithFormat:@"%@ #tapebooth", self.headerTitle]]
+                                                                                     applicationActivities:nil];
+        [self presentViewController:viewController animated:YES completion:nil];
+    }
+    else
+    {
+        [[[UIAlertView alloc] initWithTitle:@"Please wait..."
+                                    message:@"Your image has not been loaded yet."
+                                   delegate:nil
+                          cancelButtonTitle:@"OK"
+                          otherButtonTitles:nil, nil] show];
+    }
 }
 
 #pragma mark - AlertView Delegate

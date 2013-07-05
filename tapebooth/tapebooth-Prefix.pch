@@ -27,7 +27,6 @@
     #import "PaperFoldView.h"
     #import "GPUImage.h"
     #import "DLCImagePickerController.h"
-    #import "SHK.h"
     #import "CKRefreshControl.h"
 // Data Model
     #import "ICPrefs.h"
